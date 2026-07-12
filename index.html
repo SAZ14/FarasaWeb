@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farasa — Real construction data for physical AI</title>
+  <meta name="description" content="Farasa delivers professionally annotated, real-world physical AI training data captured on active construction sites — human actions, tool use, and long-horizon task trajectories for robotics and embodied AI.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f1b2d'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='%23c96f2e' font-family='Helvetica'>F</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ============ Header ============ -->
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Farasa home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Farasa
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#problem">Problem</a>
+        <a href="#deliver">What we deliver</a>
+        <a href="#why">Why Farasa</a>
+        <a href="#process">How it works</a>
+      </nav>
+      <a class="btn btn-primary btn-sm" href="#contact">Talk to us</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ Hero ============ -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Physical AI training data</p>
+          <h1>Real construction data for physical&nbsp;AI</h1>
+          <p class="lede">
+            Farasa captures authentic human labor — actions, tool use, and long-horizon
+            workflows — on live construction sites, and delivers professionally annotated
+            datasets and trajectories for robotics and embodied AI teams.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">Request a sample dataset</a>
+            <a class="btn btn-ghost" href="#deliver">See what we deliver</a>
+          </div>
+          <ul class="hero-meta" aria-label="Key facts">
+            <li>Live job sites</li>
+            <li>Human-verified annotation</li>
+            <li>Long-horizon trajectories</li>
+          </ul>
+        </div>
+
+        <figure class="hero-visual reveal" aria-hidden="true">
+          <!-- Abstract pose-trajectory visualization -->
+          <svg viewBox="0 0 480 420" role="img" aria-label="Abstract visualization of a tracked human pose and motion trajectory">
+            <defs>
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-opacity="0.08" stroke-width="1"/>
+              </pattern>
+            </defs>
+            <rect width="480" height="420" fill="url(#grid)"/>
+            <!-- trajectory path -->
+            <path class="traj" d="M 40 340 C 120 320, 150 220, 230 210 S 380 150, 430 90"
+                  fill="none" stroke-width="2" stroke-dasharray="4 7" stroke-linecap="round"/>
+            <!-- keypoints along trajectory -->
+            <g class="keypoints">
+              <circle cx="40"  cy="340" r="5"/>
+              <circle cx="152" cy="253" r="5"/>
+              <circle cx="230" cy="210" r="5"/>
+              <circle cx="330" cy="172" r="5"/>
+              <circle cx="430" cy="90"  r="5"/>
+            </g>
+            <!-- simplified pose skeleton -->
+            <g class="pose" stroke-width="2.5" stroke-linecap="round" fill="none">
+              <circle cx="238" cy="120" r="14" class="pose-head"/>
+              <line x1="238" y1="134" x2="238" y2="200"/>          <!-- torso -->
+              <line x1="238" y1="150" x2="196" y2="188"/>          <!-- left arm -->
+              <line x1="238" y1="150" x2="286" y2="176"/>          <!-- right arm -->
+              <line x1="286" y1="176" x2="316" y2="156"/>          <!-- forearm to tool -->
+              <line x1="238" y1="200" x2="212" y2="264"/>          <!-- left leg -->
+              <line x1="238" y1="200" x2="266" y2="264"/>          <!-- right leg -->
+            </g>
+            <!-- joint markers -->
+            <g class="joints">
+              <circle cx="238" cy="150" r="4"/>
+              <circle cx="196" cy="188" r="4"/>
+              <circle cx="286" cy="176" r="4"/>
+              <circle cx="316" cy="156" r="4"/>
+              <circle cx="238" cy="200" r="4"/>
+              <circle cx="212" cy="264" r="4"/>
+              <circle cx="266" cy="264" r="4"/>
+            </g>
+            <!-- annotation labels -->
+            <g class="labels">
+              <rect x="316" y="120" width="104" height="24" rx="4"/>
+              <text x="328" y="136">grasp: tool</text>
+              <rect x="120" y="286" width="128" height="24" rx="4"/>
+              <text x="132" y="302">t=0 · lift start</text>
+            </g>
+          </svg>
+          <figcaption class="visually-hidden">Illustration of annotated human motion data</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ Problem ============ -->
+    <section class="section section-tint" id="problem">
+      <div class="container narrow reveal">
+        <p class="eyebrow">The problem</p>
+        <h2>Most physical AI data never touches the real world</h2>
+        <p class="section-lede">
+          Models trained for physical work are still learning from simulation, staged lab
+          demonstrations, or datasets that are too clean to transfer. Real job sites are
+          unstructured: cluttered, dynamic, and full of long, multi-step tasks that
+          synthetic data can't reproduce.
+        </p>
+        <div class="problem-grid">
+          <div class="problem-item">
+            <h3>Simulated</h3>
+            <p>Physics engines miss the friction, deformation, and unpredictability of real materials and tools.</p>
+          </div>
+          <div class="problem-item">
+            <h3>Lab-based</h3>
+            <p>Controlled environments strip out the clutter, occlusion, and improvisation that define real work.</p>
+          </div>
+          <div class="problem-item">
+            <h3>Too clean</h3>
+            <p>Short, scripted clips can't teach the long-horizon reasoning that physical tasks demand.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ What we deliver ============ -->
+    <section class="section" id="deliver">
+      <div class="container reveal">
+        <p class="eyebrow">What we deliver</p>
+        <h2>Datasets built from real work, annotated to specification</h2>
+        <div class="card-grid">
+          <article class="card">
+            <span class="card-index">01</span>
+            <h3>Annotated action datasets</h3>
+            <p>Human action data captured on real construction sites — labeled, segmented, and quality-checked for training.</p>
+          </article>
+          <article class="card">
+            <span class="card-index">02</span>
+            <h3>Long-horizon trajectories</h3>
+            <p>Complete multi-step task recordings, from setup to finish, structured for imitation learning pipelines.</p>
+          </article>
+          <article class="card">
+            <span class="card-index">03</span>
+            <h3>Custom data collection</h3>
+            <p>Targeted capture campaigns on active job sites, scoped to the tasks, tools, and viewpoints your models need.</p>
+          </article>
+          <article class="card">
+            <span class="card-index">04</span>
+            <h3>Pose &amp; interaction annotation</h3>
+            <p>High-quality pose, object-interaction, and workflow annotations produced by skilled technical teams.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Why Farasa ============ -->
+    <section class="section section-dark" id="why">
+      <div class="container reveal">
+        <p class="eyebrow">Why Farasa</p>
+        <h2>Ground truth from the ground up</h2>
+        <div class="why-grid">
+          <div class="why-item">
+            <h3>Live site access</h3>
+            <p>Direct, ongoing access to active construction sites — not staged reenactments or one-off shoots.</p>
+          </div>
+          <div class="why-item">
+            <h3>Expert annotation</h3>
+            <p>Skilled technical teams who understand both the labor being performed and the models being trained.</p>
+          </div>
+          <div class="why-item">
+            <h3>High fidelity, controlled cost</h3>
+            <p>Real-world data at a cost structure that makes large-scale collection practical.</p>
+          </div>
+          <div class="why-item">
+            <h3>Built for heavy physical work</h3>
+            <p>A deliberate focus on construction and demanding physical tasks — the hardest domain for embodied AI.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Who we serve ============ -->
+    <section class="section" id="serve">
+      <div class="container narrow reveal">
+        <p class="eyebrow">Who we serve</p>
+        <h2>Teams building machines that work in the real world</h2>
+        <ul class="serve-list">
+          <li>Construction robotics companies</li>
+          <li>Embodied AI research labs</li>
+          <li>Humanoid robotics teams</li>
+          <li>Physical AI data platforms</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ How it works ============ -->
+    <section class="section section-tint" id="process">
+      <div class="container reveal">
+        <p class="eyebrow">How it works</p>
+        <h2>From job site to training set</h2>
+        <ol class="steps">
+          <li class="step">
+            <span class="step-num">1</span>
+            <h3>Scope</h3>
+            <p>We define the tasks, viewpoints, sensors, and annotation schema with your team.</p>
+          </li>
+          <li class="step">
+            <span class="step-num">2</span>
+            <h3>Collection</h3>
+            <p>Our operators capture real workflows on active construction sites, with full consent and safety compliance.</p>
+          </li>
+          <li class="step">
+            <span class="step-num">3</span>
+            <h3>Annotation</h3>
+            <p>Technical annotators label poses, interactions, and task structure against your specification.</p>
+          </li>
+          <li class="step">
+            <span class="step-num">4</span>
+            <h3>Delivery</h3>
+            <p>Quality-checked datasets delivered in your format, ready for training and evaluation.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ Contact / CTA ============ -->
+    <section class="section section-cta" id="contact">
+      <div class="container narrow reveal">
+        <h2>See the data for yourself</h2>
+        <p class="section-lede">
+          Request a sample dataset or tell us what your models need. We'll respond within
+          two business days.
+        </p>
+        <form class="contact-form" action="mailto:hello@farasa.ai" method="post" enctype="text/plain">
+          <div class="form-row">
+            <label>
+              <span>Name</span>
+              <input type="text" name="name" autocomplete="name" required>
+            </label>
+            <label>
+              <span>Work email</span>
+              <input type="email" name="email" autocomplete="email" required>
+            </label>
+          </div>
+          <label>
+            <span>What are you building?</span>
+            <textarea name="message" rows="4" placeholder="Tell us about your models and the data you need"></textarea>
+          </label>
+          <button type="submit" class="btn btn-primary">Request a sample dataset</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ Footer ============ -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="#top">
+          <span class="brand-mark" aria-hidden="true"></span>
+          Farasa
+        </a>
+        <p>Real-world physical AI training data from active construction sites.</p>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:hello@farasa.ai">hello@farasa.ai</a>
+        <a href="https://www.linkedin.com/company/farasa" rel="noopener" target="_blank">LinkedIn</a>
+      </div>
+      <div class="footer-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <span>© 2026 Farasa</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
