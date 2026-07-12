@@ -246,20 +246,140 @@ h3 { font-size: 1.06rem; margin-bottom: 0.45rem; }
   background: var(--tint);
   border: 1px solid var(--line);
   border-radius: 16px;
-  padding: 20px;
   color: var(--charcoal);
 }
 
-.hero-visual .traj { stroke: var(--accent); }
-.hero-visual .keypoints circle { fill: var(--accent); opacity: 0.85; }
-.hero-visual .pose { stroke: var(--navy); }
-.hero-visual .pose-head { fill: none; }
-.hero-visual .joints circle { fill: var(--navy); }
-.hero-visual .labels rect { fill: var(--white); stroke: var(--line); }
-.hero-visual .labels text {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 12px;
-  fill: var(--body);
+/* Trajectory player */
+
+.traj-player {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.traj-mono, .traj-id, .traj-phase, .traj-time, .traj-readout, .traj-tip {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.traj-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px 0;
+}
+
+.traj-id {
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+.traj-phase {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-dark);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 12px;
+  min-width: 84px;
+  text-align: center;
+}
+
+.traj-stage { position: relative; }
+
+.traj-stage canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 8 / 7;
+  cursor: crosshair;
+}
+
+.traj-tip {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  background: var(--navy);
+  color: var(--white);
+  font-size: 0.7rem;
+  line-height: 1;
+  padding: 5px 9px;
+  border-radius: 5px;
+  white-space: nowrap;
+  transform: translate(-50%, -140%);
+}
+
+.traj-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 2px 18px 12px;
+}
+
+.traj-toggle {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--white);
+  color: var(--navy);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.traj-toggle:hover { border-color: var(--navy); }
+
+.traj-toggle:focus-visible,
+.traj-controls input[type="range"]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.traj-toggle svg { width: 11px; height: 11px; fill: currentColor; }
+.traj-toggle .icon-play { display: none; }
+.traj-toggle.paused .icon-play { display: block; margin-left: 2px; }
+.traj-toggle.paused .icon-pause { display: none; }
+
+.traj-controls input[type="range"] {
+  flex: 1;
+  accent-color: var(--accent);
+  cursor: pointer;
+  min-width: 0;
+}
+
+.traj-time {
+  flex: none;
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  min-width: 86px;
+}
+
+.traj-readout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 18px;
+  padding: 10px 0 14px;
+  border-top: 1px dashed var(--line);
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.traj-hint { letter-spacing: 0.02em; }
+
+@media (max-width: 480px) {
+  .traj-hint { display: none; }
 }
 
 /* ---------- Sections ---------- */
@@ -379,7 +499,7 @@ h3 { font-size: 1.06rem; margin-bottom: 0.45rem; }
 }
 
 .serve-list li {
-  padding: 1.1rem 0;
+  padding: 1.1rem 0 1.1rem 0;
   border-bottom: 1px solid var(--line);
   font-size: 1.12rem;
   font-weight: 500;
@@ -387,7 +507,10 @@ h3 { font-size: 1.06rem; margin-bottom: 0.45rem; }
   display: flex;
   align-items: center;
   gap: 16px;
+  transition: padding-left 0.3s var(--ease);
 }
+
+.serve-list li:hover { padding-left: 10px; }
 
 .serve-list li:first-child { border-top: 1px solid var(--line); }
 
@@ -426,6 +549,12 @@ h3 { font-size: 1.06rem; margin-bottom: 0.45rem; }
   font-weight: 600;
   font-size: 0.9rem;
   margin-bottom: 1.1rem;
+  transition: background-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+
+.step:hover .step-num {
+  background: var(--navy);
+  color: var(--white);
 }
 
 .step p { font-size: 0.93rem; }
