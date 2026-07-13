@@ -768,7 +768,7 @@ button:focus-visible {
 
 @media (min-width: 840px) {
   .footer-inner {
-    grid-template-columns: 1.5fr 1fr 1fr;
+    grid-template-columns: 1.5fr 1fr;
     align-items: start;
   }
 }
@@ -789,26 +789,21 @@ button:focus-visible {
   margin-bottom: 4px;
 }
 
-.footer-links,
-.footer-legal {
+.footer-links {
   display: flex;
   flex-direction: column;
   gap: 10px;
   font-size: 0.9rem;
 }
 
-.footer-links a,
-.footer-legal a {
+.footer-links a {
   color: var(--body);
   text-decoration: none;
   transition: color 0.2s var(--ease);
   align-self: start;
 }
 
-.footer-links a:hover,
-.footer-legal a:hover { color: var(--accent-bright); }
-
-.footer-copy { color: var(--muted); }
+.footer-links a:hover { color: var(--accent-bright); }
 
 .footer-wordmark {
   font-size: clamp(4.5rem, 16vw, 13rem);
