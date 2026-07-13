@@ -5,13 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Farasa — Real construction data for physical AI</title>
   <meta name="description" content="Farasa delivers professionally annotated, real-world physical AI training data captured on active construction sites — human actions, tool use, and long-horizon task trajectories for robotics and embodied AI.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f1b2d'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='%23c96f2e' font-family='Helvetica'>F</text></svg>">
+  <meta name="theme-color" content="#0a0d12">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230a0d12'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='%23e0813c' font-family='Helvetica'>F</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- ============ Header ============ -->
   <header class="site-header" id="top">
@@ -22,39 +24,62 @@
       </a>
       <nav class="site-nav" aria-label="Primary">
         <a href="#problem">Problem</a>
-        <a href="#deliver">What we deliver</a>
+        <a href="#deliver">Data</a>
         <a href="#why">Why Farasa</a>
-        <a href="#process">How it works</a>
+        <a href="#process">Process</a>
+        <a href="#serve">Customers</a>
       </nav>
-      <a class="btn btn-primary btn-sm" href="#contact">Talk to us</a>
+      <div class="header-actions">
+        <a class="btn btn-primary btn-sm magnetic" href="#contact">Talk to us</a>
+        <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+          <span></span><span></span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <main>
+  <!-- Mobile navigation overlay -->
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <a href="#problem">Problem</a>
+    <a href="#deliver">Data</a>
+    <a href="#why">Why Farasa</a>
+    <a href="#process">Process</a>
+    <a href="#serve">Customers</a>
+    <a href="#contact" class="mobile-nav-cta">Talk to us</a>
+  </nav>
+
+  <main id="main">
 
     <!-- ============ Hero ============ -->
     <section class="hero">
+      <div class="hero-glow" aria-hidden="true"></div>
       <div class="container hero-inner">
-        <div class="hero-copy reveal">
-          <p class="eyebrow">Physical AI training data</p>
-          <h1>Real construction data for physical&nbsp;AI</h1>
-          <p class="lede">
+        <div class="hero-copy">
+          <p class="eyebrow intro-rise" style="--d:0">Physical AI training data</p>
+          <h1 class="intro-stagger" aria-label="Real construction data for physical AI">
+            <span style="--d:1">Real</span>
+            <span style="--d:2">construction</span>
+            <span style="--d:3">data</span>
+            <span style="--d:4">for</span>
+            <span class="accent" style="--d:5">physical&nbsp;AI</span>
+          </h1>
+          <p class="lede intro-rise" style="--d:6">
             Farasa captures authentic human labor — actions, tool use, and long-horizon
             workflows — on live construction sites, and delivers professionally annotated
             datasets and trajectories for robotics and embodied AI teams.
           </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#contact">Request a sample dataset</a>
-            <a class="btn btn-ghost" href="#deliver">See what we deliver</a>
+          <div class="hero-actions intro-rise" style="--d:7">
+            <a class="btn btn-primary magnetic" href="#contact">Request a sample dataset</a>
+            <a class="btn btn-ghost" href="#deliver">Explore the data</a>
           </div>
-          <ul class="hero-meta" aria-label="Key facts">
+          <ul class="hero-meta intro-rise" style="--d:8" aria-label="Key facts">
             <li>Live job sites</li>
             <li>Human-verified annotation</li>
             <li>Long-horizon trajectories</li>
           </ul>
         </div>
 
-        <figure class="hero-visual traj-player reveal" role="group" aria-label="Interactive preview of an annotated task trajectory">
+        <figure class="hero-visual traj-player intro-rise" style="--d:4" role="group" aria-label="Interactive preview of an annotated task trajectory">
           <div class="traj-head">
             <span class="traj-id">TRAJ-0042 · lift-carry-place · 9.0s</span>
             <span class="traj-phase" data-phase>approach</span>
@@ -80,8 +105,16 @@
       </div>
     </section>
 
+    <!-- ============ Workflow ticker ============ -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>Rebar installation</span><span>Concrete pouring</span><span>Formwork assembly</span><span>Scaffolding</span><span>Masonry</span><span>Material transport</span><span>Tool handoffs</span><span>Drywall finishing</span><span>Excavation support</span><span>Steel fixing</span>
+        <span>Rebar installation</span><span>Concrete pouring</span><span>Formwork assembly</span><span>Scaffolding</span><span>Masonry</span><span>Material transport</span><span>Tool handoffs</span><span>Drywall finishing</span><span>Excavation support</span><span>Steel fixing</span>
+      </div>
+    </div>
+
     <!-- ============ Problem ============ -->
-    <section class="section section-tint" id="problem">
+    <section class="section" id="problem">
       <div class="container narrow reveal">
         <p class="eyebrow">The problem</p>
         <h2>Most physical AI data never touches the real world</h2>
@@ -91,7 +124,7 @@
           unstructured: cluttered, dynamic, and full of long, multi-step tasks that
           synthetic data can't reproduce.
         </p>
-        <div class="problem-grid">
+        <div class="problem-grid reveal-stagger">
           <div class="problem-item">
             <h3>Simulated</h3>
             <p>Physics engines miss the friction, deformation, and unpredictability of real materials and tools.</p>
@@ -109,11 +142,11 @@
     </section>
 
     <!-- ============ What we deliver ============ -->
-    <section class="section" id="deliver">
+    <section class="section section-raised" id="deliver">
       <div class="container reveal">
         <p class="eyebrow">What we deliver</p>
         <h2>Datasets built from real work, annotated to specification</h2>
-        <div class="card-grid">
+        <div class="card-grid reveal-stagger">
           <article class="card">
             <span class="card-index">01</span>
             <h3>Annotated action datasets</h3>
@@ -139,24 +172,44 @@
     </section>
 
     <!-- ============ Why Farasa ============ -->
-    <section class="section section-dark" id="why">
+    <section class="section" id="why">
       <div class="container reveal">
         <p class="eyebrow">Why Farasa</p>
         <h2>Ground truth from the ground up</h2>
-        <div class="why-grid">
-          <div class="why-item">
+
+        <div class="stats-band reveal-stagger" aria-label="Collection capacity">
+          <div class="stat">
+            <span class="stat-num"><span data-counter="40" data-decimals="0">0</span>+</span>
+            <span class="stat-label">hours captured weekly</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num"><span data-counter="6" data-decimals="0">0</span></span>
+            <span class="stat-label">active job sites</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num"><span data-counter="11" data-decimals="0">0</span></span>
+            <span class="stat-label">tracked keypoints per worker</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num"><span data-counter="98.5" data-decimals="1">0</span>%</span>
+            <span class="stat-label">annotation QA pass rate</span>
+          </div>
+        </div>
+
+        <div class="why-grid reveal-stagger">
+          <div class="why-item card-spot">
             <h3>Live site access</h3>
             <p>Direct, ongoing access to active construction sites — not staged reenactments or one-off shoots.</p>
           </div>
-          <div class="why-item">
+          <div class="why-item card-spot">
             <h3>Expert annotation</h3>
             <p>Skilled technical teams who understand both the labor being performed and the models being trained.</p>
           </div>
-          <div class="why-item">
+          <div class="why-item card-spot">
             <h3>High fidelity, controlled cost</h3>
             <p>Real-world data at a cost structure that makes large-scale collection practical.</p>
           </div>
-          <div class="why-item">
+          <div class="why-item card-spot">
             <h3>Built for heavy physical work</h3>
             <p>A deliberate focus on construction and demanding physical tasks — the hardest domain for embodied AI.</p>
           </div>
@@ -165,11 +218,11 @@
     </section>
 
     <!-- ============ Who we serve ============ -->
-    <section class="section" id="serve">
+    <section class="section section-raised" id="serve">
       <div class="container narrow reveal">
         <p class="eyebrow">Who we serve</p>
         <h2>Teams building machines that work in the real world</h2>
-        <ul class="serve-list">
+        <ul class="serve-list reveal-stagger">
           <li>Construction robotics companies</li>
           <li>Embodied AI research labs</li>
           <li>Humanoid robotics teams</li>
@@ -179,11 +232,11 @@
     </section>
 
     <!-- ============ How it works ============ -->
-    <section class="section section-tint" id="process">
+    <section class="section" id="process">
       <div class="container reveal">
         <p class="eyebrow">How it works</p>
         <h2>From job site to training set</h2>
-        <ol class="steps">
+        <ol class="steps reveal-stagger">
           <li class="step">
             <span class="step-num">1</span>
             <h3>Scope</h3>
@@ -211,6 +264,7 @@
     <!-- ============ Contact / CTA ============ -->
     <section class="section section-cta" id="contact">
       <div class="container narrow reveal">
+        <p class="eyebrow">Get started</p>
         <h2>See the data for yourself</h2>
         <p class="section-lede">
           Request a sample dataset or tell us what your models need. We'll respond within
@@ -231,7 +285,7 @@
             <span>What are you building?</span>
             <textarea name="message" rows="4" placeholder="Tell us about your models and the data you need"></textarea>
           </label>
-          <button type="submit" class="btn btn-primary">Request a sample dataset</button>
+          <button type="submit" class="btn btn-primary magnetic">Request a sample dataset</button>
         </form>
       </div>
     </section>
@@ -240,23 +294,28 @@
 
   <!-- ============ Footer ============ -->
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <div class="footer-brand">
-        <a class="brand" href="#top">
-          <span class="brand-mark" aria-hidden="true"></span>
-          Farasa
-        </a>
-        <p>Real-world physical AI training data from active construction sites.</p>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a class="brand" href="#top">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Farasa
+          </a>
+          <p>Real-world physical AI training data from active construction sites.</p>
+        </div>
+        <div class="footer-links">
+          <span class="footer-heading">Contact</span>
+          <a href="mailto:hello@farasa.ai">hello@farasa.ai</a>
+          <a href="https://www.linkedin.com/company/farasa" rel="noopener" target="_blank">LinkedIn</a>
+        </div>
+        <div class="footer-legal">
+          <span class="footer-heading">Legal</span>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <span class="footer-copy">© 2026 Farasa</span>
+        </div>
       </div>
-      <div class="footer-links">
-        <a href="mailto:hello@farasa.ai">hello@farasa.ai</a>
-        <a href="https://www.linkedin.com/company/farasa" rel="noopener" target="_blank">LinkedIn</a>
-      </div>
-      <div class="footer-legal">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <span>© 2026 Farasa</span>
-      </div>
+      <div class="footer-wordmark" aria-hidden="true">FARASA</div>
     </div>
   </footer>
 

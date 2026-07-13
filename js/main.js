@@ -1,9 +1,18 @@
-// Farasa — micro-interactions and hero trajectory player
+// Farasa — interactions: reveals, nav, counters, spotlight, magnetic
+// buttons, and the hero trajectory player.
 
-// ---------- Reveal sections on scroll ----------
-const revealables = document.querySelectorAll(".reveal");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-if ("IntersectionObserver" in window) {
+// ---------- Reveal sections on scroll (with per-child stagger) ----------
+document.querySelectorAll(".reveal-stagger").forEach((group) => {
+  Array.from(group.children).forEach((child, i) => {
+    child.style.setProperty("--sd", `${i * 90}ms`);
+  });
+});
+
+const revealables = document.querySelectorAll(".reveal, .reveal-stagger");
+
+if ("IntersectionObserver" in window && !reduceMotion) {
   const observer = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
@@ -25,6 +34,113 @@ const header = document.querySelector(".site-header");
 const onScroll = () => header.classList.toggle("scrolled", window.scrollY > 8);
 onScroll();
 window.addEventListener("scroll", onScroll, { passive: true });
+
+// ---------- Active section highlighting in nav ----------
+const navLinks = Array.from(document.querySelectorAll(".site-nav a"));
+const sectionsByNav = navLinks
+  .map((a) => document.querySelector(a.getAttribute("href")))
+  .filter(Boolean);
+
+if ("IntersectionObserver" in window && sectionsByNav.length) {
+  const navObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        const id = `#${entry.target.id}`;
+        navLinks.forEach((a) =>
+          a.classList.toggle("active", a.getAttribute("href") === id)
+        );
+      }
+    },
+    { rootMargin: "-40% 0px -55% 0px" }
+  );
+  sectionsByNav.forEach((s) => navObserver.observe(s));
+}
+
+// ---------- Mobile navigation ----------
+const navToggle = document.querySelector(".nav-toggle");
+const mobileNav = document.querySelector(".mobile-nav");
+
+if (navToggle && mobileNav) {
+  const setOpen = (open) => {
+    navToggle.classList.toggle("open", open);
+    mobileNav.classList.toggle("open", open);
+    document.body.classList.toggle("nav-open", open);
+    navToggle.setAttribute("aria-expanded", String(open));
+    navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  };
+  navToggle.addEventListener("click", () =>
+    setOpen(!mobileNav.classList.contains("open"))
+  );
+  mobileNav.querySelectorAll("a").forEach((a) =>
+    a.addEventListener("click", () => setOpen(false))
+  );
+}
+
+// ---------- Animated counters ----------
+const counters = document.querySelectorAll("[data-counter]");
+
+function runCounter(el) {
+  const target = parseFloat(el.dataset.counter);
+  const decimals = parseInt(el.dataset.decimals || "0", 10);
+  if (reduceMotion) {
+    el.textContent = target.toFixed(decimals);
+    return;
+  }
+  const dur = 1400;
+  const start = performance.now();
+  const tick = (now) => {
+    const k = Math.min(1, (now - start) / dur);
+    const eased = 1 - Math.pow(1 - k, 3);
+    el.textContent = (target * eased).toFixed(decimals);
+    if (k < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+if ("IntersectionObserver" in window) {
+  const countObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          runCounter(entry.target);
+          countObserver.unobserve(entry.target);
+        }
+      }
+    },
+    { threshold: 0.6 }
+  );
+  counters.forEach((el) => countObserver.observe(el));
+} else {
+  counters.forEach(runCounter);
+}
+
+// ---------- Cursor spotlight on cards ----------
+document.querySelectorAll(".card, .why-item").forEach((el) => {
+  el.addEventListener("pointermove", (e) => {
+    const rect = el.getBoundingClientRect();
+    el.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+    el.style.setProperty("--my", `${e.clientY - rect.top}px`);
+  });
+});
+
+// ---------- Magnetic buttons ----------
+if (!reduceMotion) {
+  document.querySelectorAll(".magnetic").forEach((btn) => {
+    const strength = 0.3;
+    btn.addEventListener("pointermove", (e) => {
+      const rect = btn.getBoundingClientRect();
+      const dx = e.clientX - (rect.left + rect.width / 2);
+      const dy = e.clientY - (rect.top + rect.height / 2);
+      btn.style.transform = `translate(${dx * strength}px, ${dy * strength}px)`;
+    });
+    btn.addEventListener("pointerleave", () => {
+      btn.style.transition = "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)";
+      btn.style.transform = "";
+      setTimeout(() => { btn.style.transition = ""; }, 400);
+    });
+  });
+}
 
 // ---------- Hero trajectory player ----------
 // A miniature annotation-viewer: a tracked worker performs a full
@@ -49,14 +165,15 @@ function initTrajectoryPlayer(root) {
   const DUR = 9; // seconds per cycle
 
   const COLOR = {
-    navy: "#0f1b2d",
-    accent: "#c96f2e",
-    accentDark: "#a95a20",
-    grid: "rgba(35, 40, 46, 0.08)",
-    ground: "rgba(35, 40, 46, 0.28)",
-    path: "rgba(35, 40, 46, 0.18)",
-    white: "#ffffff",
-    lineSoft: "#d9d5cb",
+    bone: "#eef1f5",
+    accent: "#e0813c",
+    accentBright: "#f0934e",
+    grid: "rgba(233, 237, 243, 0.05)",
+    ground: "rgba(233, 237, 243, 0.28)",
+    path: "rgba(233, 237, 243, 0.2)",
+    blockFill: "rgba(224, 129, 60, 0.22)",
+    blockIdleFill: "rgba(233, 237, 243, 0.05)",
+    blockIdleStroke: "rgba(233, 237, 243, 0.3)",
   };
 
   const BLOCK = { w: 26, h: 18 };
@@ -195,7 +312,6 @@ function initTrajectoryPlayer(root) {
   }
 
   // ----- State -----
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let playing = !reduceMotion;
   let t = reduceMotion ? 0.5 : 0;
   let hovered = null; // { key, x, y }
@@ -229,8 +345,8 @@ function initTrajectoryPlayer(root) {
   function drawBlock(b, active) {
     if (b.alpha <= 0) return;
     ctx.globalAlpha = b.alpha;
-    ctx.fillStyle = active ? "rgba(201, 111, 46, 0.18)" : COLOR.white;
-    ctx.strokeStyle = active ? COLOR.accentDark : COLOR.lineSoft;
+    ctx.fillStyle = active ? COLOR.blockFill : COLOR.blockIdleFill;
+    ctx.strokeStyle = active ? COLOR.accent : COLOR.blockIdleStroke;
     ctx.lineWidth = 1.6;
     ctx.beginPath();
     ctx.rect(b.x - BLOCK.w / 2, b.y - BLOCK.h / 2, BLOCK.w, BLOCK.h);
@@ -270,7 +386,7 @@ function initTrajectoryPlayer(root) {
       i === upto ? ctx.moveTo(p[0], p[1]) : ctx.lineTo(p[0], p[1]);
     }
     ctx.stroke();
-    ctx.strokeStyle = "rgba(201, 111, 46, 0.55)";
+    ctx.strokeStyle = "rgba(224, 129, 60, 0.65)";
     ctx.beginPath();
     for (let i = 0; i <= upto; i++) {
       const p = wristPath[i];
@@ -288,8 +404,8 @@ function initTrajectoryPlayer(root) {
     // Recent wrist trail (deterministic, so scrubbing works)
     for (let i = 1; i <= 24; i++) {
       const p = poseAt(t - i * 0.007).pts.hand1;
-      ctx.globalAlpha = 0.55 * (1 - i / 26);
-      ctx.fillStyle = COLOR.accent;
+      ctx.globalAlpha = 0.6 * (1 - i / 26);
+      ctx.fillStyle = COLOR.accentBright;
       ctx.beginPath();
       ctx.arc(p[0], p[1], 2.1, 0, Math.PI * 2);
       ctx.fill();
@@ -301,7 +417,7 @@ function initTrajectoryPlayer(root) {
     drawBlock(b, t >= ATTACH_START && t < ATTACH_END);
 
     // Skeleton
-    ctx.strokeStyle = COLOR.navy;
+    ctx.strokeStyle = COLOR.bone;
     ctx.lineWidth = 2.5;
     ctx.lineCap = "round";
     ctx.beginPath();
@@ -320,16 +436,16 @@ function initTrajectoryPlayer(root) {
     for (const key of Object.keys(JOINT_LABELS)) {
       if (key === "head") continue;
       const p = pts[key];
-      ctx.fillStyle = COLOR.navy;
+      ctx.fillStyle = COLOR.bone;
       ctx.beginPath();
-      ctx.arc(p[0], p[1], 3.4, 0, Math.PI * 2);
+      ctx.arc(p[0], p[1], 3.2, 0, Math.PI * 2);
       ctx.fill();
     }
 
     // Hovered joint highlight
     if (hovered) {
       const p = pts[hovered.key];
-      ctx.strokeStyle = COLOR.accent;
+      ctx.strokeStyle = COLOR.accentBright;
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.arc(p[0], p[1], 7, 0, Math.PI * 2);
