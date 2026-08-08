@@ -1,0 +1,52 @@
+# Farasa
+
+Annotated egocentric video of real human labour, captured on active construction sites.
+
+Farasa runs head-mounted capture on live construction sites, annotates every frame for hand pose, objects, gaze, contact, and action, then delivers it to teams training embodied models.
+
+## What We Offer
+
+### Annotated Egocentric Datasets
+First-person video from real construction sites, segmented, labelled, and QA'd frame by frame against your schema.
+
+### Long-Horizon Trajectories
+Complete multi-step takes, setup to finish, with the mistakes and corrections left in. Structured for imitation learning pipelines.
+
+### Commissioned Capture
+Targeted collection campaigns on active job sites, scoped to the tasks, tools, and viewpoints your models are currently missing.
+
+### Annotation as a Service
+Send us your own footage. It runs through the same stack, the same annotators, and the same QA gate as everything we capture.
+
+## Capabilities
+
+- Head-mounted capture: 3840x2160 @ 60fps, 122-degree HFOV, IMU-synced at 200 Hz
+- 21 keypoints per hand tracked through occlusion, glove, and motion blur
+- Six annotation layers: raw capture, hand pose, objects (3D boxes), gaze, contact events, action segments
+- Two-pass QA gate on every frame
+- 2000+ hours captured across 12 active job sites
+- 99.2% annotation QA pass rate
+
+## Contact
+
+ahmed.zeeshan@vanderbilt.edu
+
+## Documentation
+
+### Annotation Layers
+
+**L0 - Raw Capture**: 3840x2160 at 60fps, head-mounted, 122-degree horizontal field of view, hardware-timestamped against a 200 Hz IMU.
+
+**L1 - Hand Pose**: 21 keypoints per hand with per-joint visibility flags, tracked through occlusion, glove, and motion blur.
+
+**L2 - Objects**: Amodal 3D boxes and instance masks for tools, materials, and fixtures, with stable track IDs held across the whole take.
+
+**L3 - Gaze**: Where the worker is actually looking, with dwell duration.
+
+**L4 - Contact**: Frame-exact make and break events for every hand-object contact, typed by grasp: pinch, power, hook, support.
+
+**L5 - Action**: Nested action segments with verb-object structure, from the atomic reach all the way up to the full multi-hour task.
+
+## More Information
+
+For more details, visit our website: https://farasa.xyz
