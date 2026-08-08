@@ -12,7 +12,9 @@ image or video assets. The footage on the page is generated at runtime.
 ```
 index.html      Page markup (all sections)
 css/style.css   Design system, layout, reveal choreography
-js/main.js      POV renderer + page behaviour
+js/renderer.js  POV renderer (3D scene, camera, annotations)
+js/app.js       Page init (reveals, header, nav, counters, form)
+sw.js           Service worker (offline cache)
 ```
 
 ## Design
@@ -54,8 +56,13 @@ top of a cut is still the outgoing surface.
 
 ## The POV renderer
 
-`js/main.js` draws the hero and the annotation-stack viewer. There is no video
+`js/renderer.js` draws the hero and the annotation-stack viewer. There is no video
 file: it is a small software renderer.
+
+### Performance budget
+
+On low-end devices (≤4 CPU cores or <4 GB RAM), the renderer automatically
+reduces quality to 0.5 (half resolution) to maintain 60fps.
 
 - **Camera.** Pinhole projection plus barrel distortion, matching a 122° action
   cam. Straight world lines are subdivided so they bow correctly under the lens.
@@ -104,6 +111,12 @@ Full `prefers-reduced-motion` path: the feed renders a single static frame,
 reveals and marquees are disabled, and the play/scrub controls still work if the
 visitor chooses to use them. All controls are real buttons and inputs with
 labels; the canvas is decorative and the copy stands alone without it.
+
+## Offline support
+
+A service worker (`sw.js`) caches all assets on first visit. The entire site
+works offline — the canvas renderer generates everything from code, so there
+are no missing assets.
 
 ## Run locally
 

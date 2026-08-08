@@ -7,6 +7,37 @@
   <meta name="description" content="Farasa captures head-mounted, first-person video of real human labour on live construction sites and annotates every frame for hand pose, objects, gaze, contact, and action, for teams training embodied AI.">
   <meta name="theme-color" content="#0B0B0C">
 
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Farasa",
+    "description": "Annotated egocentric video of real human labour, captured on active construction sites.",
+    "url": "https://farasa.xyz",
+    "email": "ahmed.zeeshan@vanderbilt.edu",
+    "knowsAbout": ["Construction Robotics", "Embodied AI", "Physical AI", "Computer Vision", "3D Annotation", "Egocentric Data"],
+    "makesOffer": [
+      {
+        "@type": "Offer",
+        "itemOffered": { "@type": "Service", "name": "Annotated egocentric datasets" }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": { "@type": "Service", "name": "Long-horizon trajectories" }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": { "@type": "Service", "name": "Commissioned capture" }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": { "@type": "Service", "name": "Annotation as a service" }
+      }
+    ]
+  }
+  </script>
+
   <meta property="og:type" content="website">
   <meta property="og:title" content="Farasa · Annotated egocentric video for physical AI">
   <meta property="og:description" content="Head-mounted capture on live construction sites, annotated frame by frame, delivered to teams training embodied models.">
@@ -35,6 +66,9 @@
         <a href="#deliver"><span class="nav-idx">03</span>Deliver</a>
         <a href="#why"><span class="nav-idx">04</span>Why</a>
         <a href="#process"><span class="nav-idx">05</span>Process</a>
+        <a href="#market"><span class="nav-idx">06</span>Market</a>
+        <a href="#serve"><span class="nav-idx">07</span>Who</a>
+        <a href="#contact"><span class="nav-idx">08</span>Contact</a>
       </nav>
 
       <div class="header-actions">
@@ -52,8 +86,9 @@
     <a href="#deliver"><em>03</em>What we deliver</a>
     <a href="#why"><em>04</em>Why Farasa</a>
     <a href="#process"><em>05</em>How it works</a>
-    <a href="#serve"><em>06</em>Who we serve</a>
-    <a href="#contact" class="mobile-cta"><em>07</em>Request a sample</a>
+    <a href="#market"><em>06</em>Market</a>
+    <a href="#serve"><em>07</em>Who we serve</a>
+    <a href="#contact" class="mobile-cta"><em>08</em>Request a sample</a>
   </nav>
 
   <main id="main">
@@ -325,19 +360,19 @@
 
         <div class="stats" data-stagger aria-label="Collection capacity">
           <div class="stat">
-            <span class="stat-n"><span data-counter="40" data-decimals="0">0</span><i>+</i></span>
-            <span class="stat-l">hours captured weekly</span>
+            <span class="stat-n"><span data-counter="2000" data-decimals="0">0</span><i>+</i></span>
+            <span class="stat-l">hours captured</span>
           </div>
           <div class="stat">
-            <span class="stat-n"><span data-counter="6" data-decimals="0">0</span></span>
+            <span class="stat-n"><span data-counter="12" data-decimals="0">0</span></span>
             <span class="stat-l">active job sites</span>
           </div>
           <div class="stat">
-            <span class="stat-n"><span data-counter="11" data-decimals="0">0</span></span>
-            <span class="stat-l">tracked body keypoints per worker</span>
+            <span class="stat-n"><span data-counter="42" data-decimals="0">0</span></span>
+            <span class="stat-l">tracked keypoints per frame</span>
           </div>
           <div class="stat">
-            <span class="stat-n"><span data-counter="98.5" data-decimals="1">0</span><i>%</i></span>
+            <span class="stat-n"><span data-counter="99.2" data-decimals="1">0</span><i>%</i></span>
             <span class="stat-l">annotation QA pass rate</span>
           </div>
         </div>
@@ -363,13 +398,48 @@
       </div>
     </section>
 
+    <div class="cut" data-cut="ink" aria-hidden="true"></div>
+
+    <!-- ══════════════ 05 · Market Opportunity ══════════════ -->
+    <section class="band" id="market" data-theme="ink">
+      <div class="shell">
+        <header class="band-head">
+          <p class="kicker" data-rise><span class="kicker-idx">05</span>Market</p>
+          <h2 data-rise>The gap between what robots need and what they can see.</h2>
+        </header>
+
+        <div class="stats" data-stagger aria-label="Market opportunity">
+          <div class="stat">
+            <span class="stat-n"><span data-counter="442" data-decimals="0">0</span><i>M</i></span>
+            <span class="stat-l">construction robotics market size (2025)</span>
+          </div>
+          <div class="stat">
+            <span class="stat-n"><span data-counter="15.5" data-decimals="1">0</span><i>%</i></span>
+            <span class="stat-l">annual growth rate</span>
+          </div>
+          <div class="stat">
+            <span class="stat-n"><span data-counter="2" data-decimals="0">0</span><i>%</i></span>
+            <span class="stat-l">construction sites using robots today</span>
+          </div>
+          <div class="stat">
+            <span class="stat-n"><span data-counter="98" data-decimals="0">0</span><i>%</i></span>
+            <span class="stat-l">of the market still untapped</span>
+          </div>
+        </div>
+
+        <div class="market-note" data-rise>
+          <p>Almost every dataset for embodied AI was captured from the outside — tripods, simulation, or lab benches. The geometry is wrong, the occlusions are wrong, and the hands, the single most informative thing in the frame, are the first thing lost. Farasa closes that loop.</p>
+        </div>
+      </div>
+    </section>
+
     <div class="cut" data-cut="paper" aria-hidden="true"></div>
 
-    <!-- ══════════════ 05 · Process ══════════════ -->
+    <!-- ══════════════ 06 · Process ══════════════ -->
     <section class="band" id="process" data-theme="paper">
       <div class="shell">
         <header class="band-head">
-          <p class="kicker" data-rise><span class="kicker-idx">05</span>How it works</p>
+          <p class="kicker" data-rise><span class="kicker-idx">06</span>How it works</p>
           <h2 data-rise>From job site to training set.</h2>
         </header>
 
@@ -405,7 +475,7 @@
     <section class="band" id="serve" data-theme="ink">
       <div class="shell">
         <header class="band-head">
-          <p class="kicker" data-rise><span class="kicker-idx">06</span>Who we serve</p>
+          <p class="kicker" data-rise><span class="kicker-idx">07</span>Who we serve</p>
           <h2 data-rise>Teams building machines that have to work in the real world.</h2>
         </header>
 
@@ -424,7 +494,7 @@
     <section class="band band-contact" id="contact" data-theme="paper">
       <div class="shell contact-grid">
         <div class="contact-copy">
-          <p class="kicker" data-rise><span class="kicker-idx">07</span>Get started</p>
+          <p class="kicker" data-rise><span class="kicker-idx">08</span>Get started</p>
           <h2 data-rise>See the footage for yourself.</h2>
           <p class="band-lede" data-rise>
             Tell us what your models are missing and we'll send back a sample take with the
@@ -485,12 +555,20 @@
           <a href="#stack">Annotation stack</a>
           <a href="#deliver">What we deliver</a>
           <a href="#process">How it works</a>
+          <a href="#market">Market</a>
         </div>
       </div>
       <div class="wordmark" aria-hidden="true">FARASA</div>
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="js/renderer.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // Register service worker for offline support
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
+  </script>
 </body>
 </html>
