@@ -1,574 +1,73 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Farasa · Annotated egocentric video for physical AI</title>
-  <meta name="description" content="Farasa captures head-mounted, first-person video of real human labour on live construction sites and annotates every frame for hand pose, objects, gaze, contact, and action, for teams training embodied AI.">
-  <meta name="theme-color" content="#0B0B0C">
-
-  <!-- Structured data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Farasa",
-    "description": "Annotated egocentric video of real human labour, captured on active construction sites.",
-    "url": "https://farasa.xyz",
-    "email": "ahmed.zeeshan@vanderbilt.edu",
-    "knowsAbout": ["Construction Robotics", "Embodied AI", "Physical AI", "Computer Vision", "3D Annotation", "Egocentric Data"],
-    "makesOffer": [
-      {
-        "@type": "Offer",
-        "itemOffered": { "@type": "Service", "name": "Annotated egocentric datasets" }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": { "@type": "Service", "name": "Long-horizon trajectories" }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": { "@type": "Service", "name": "Commissioned capture" }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": { "@type": "Service", "name": "Annotation as a service" }
-      }
-    ]
-  }
-  </script>
-
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Farasa · Annotated egocentric video for physical AI">
-  <meta property="og:description" content="Head-mounted capture on live construction sites, annotated frame by frame, delivered to teams training embodied models.">
-
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%230B0B0C'/><circle cx='50' cy='50' r='23' fill='none' stroke='%23FF5A1F' stroke-width='7'/><circle cx='50' cy='50' r='6' fill='%23FF5A1F'/></svg>">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..112,400..800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Farasa — Teaching machines the work of human hands</title>
+  <meta name="description" content="First-person video and machine data from construction sites and factory floors, labelled frame by frame, so robots can learn real work." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script>document.documentElement.classList.add("js")</script>
+  <link rel="stylesheet" href="assets/css/site.css" />
 </head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-
-  <!-- ══════════════ Header ══════════════ -->
-  <header class="site-header" id="top" data-header>
-    <div class="shell header-inner">
-      <a class="brand" href="#top" aria-label="Farasa home">
-        <span class="brand-eye" aria-hidden="true"><i></i></span>
-        <span class="brand-word">Farasa</span>
-      </a>
-
-      <nav class="site-nav" aria-label="Primary">
-        <a href="#gap"><span class="nav-idx">01</span>Gap</a>
-        <a href="#stack"><span class="nav-idx">02</span>Stack</a>
-        <a href="#deliver"><span class="nav-idx">03</span>Deliver</a>
-        <a href="#why"><span class="nav-idx">04</span>Why</a>
-        <a href="#process"><span class="nav-idx">05</span>Process</a>
-        <a href="#market"><span class="nav-idx">06</span>Market</a>
-        <a href="#serve"><span class="nav-idx">07</span>Who</a>
-        <a href="#contact"><span class="nav-idx">08</span>Contact</a>
-      </nav>
-
-      <div class="header-actions">
-        <a class="btn btn-solid btn-sm" href="#contact">Request a sample</a>
-        <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
-          <span></span><span></span>
-        </button>
-      </div>
-    </div>
+<body class="home">
+  <header class="nav">
+    <a class="wm" href="index.html">Farasa</a>
+    <nav aria-label="Main">
+      <a href="about.html">About</a>
+      <button type="button" data-order>Request data</button>
+    </nav>
   </header>
 
-  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile" inert>
-    <a href="#gap"><em>01</em>The gap</a>
-    <a href="#stack"><em>02</em>Annotation stack</a>
-    <a href="#deliver"><em>03</em>What we deliver</a>
-    <a href="#why"><em>04</em>Why Farasa</a>
-    <a href="#process"><em>05</em>How it works</a>
-    <a href="#market"><em>06</em>Market</a>
-    <a href="#serve"><em>07</em>Who we serve</a>
-    <a href="#contact" class="mobile-cta"><em>08</em>Request a sample</a>
-  </nav>
-
-  <main id="main">
-
-    <!-- ══════════════ Hero · live capture feed ══════════════ -->
-    <section class="hero" data-theme="ink" aria-labelledby="hero-title">
-
-      <div class="feed" aria-hidden="true">
-        <canvas class="feed-canvas" data-pov="hero"></canvas>
-        <div class="feed-grade"></div>
-        <div class="feed-vignette"></div>
-        <div class="feed-scanlines"></div>
-      </div>
-
-      <!-- Instrument chrome -->
-      <div class="hud" aria-hidden="true">
-        <div class="shell hud-row hud-top">
-          <span class="hud-rec"><i></i>REC</span>
-          <span class="hud-tc" data-hud="timecode">00:00:00:00</span>
-          <span class="hud-spec">3840×2160 · 60P · 122° HFOV · IMU 200HZ</span>
-        </div>
-        <div class="hud-corner tl"></div>
-        <div class="hud-corner tr"></div>
-        <div class="hud-corner bl"></div>
-        <div class="hud-corner br"></div>
-      </div>
-
-      <div class="shell hero-grid">
-        <div class="hero-copy">
-          <p class="kicker" data-rise>Egocentric video data <i>·</i> physical AI</p>
-          <h1 id="hero-title" data-rise>Human work,<br>from the <em>inside</em>.</h1>
-          <p class="hero-lede" data-rise>
-            Farasa runs head-mounted capture on live construction sites, annotates
-            every frame for hand pose, objects, gaze, contact, and action, then
-            delivers it to teams training embodied models.
-          </p>
-          <div class="hero-actions" data-rise>
-            <a class="btn btn-solid" href="#contact">Request a sample clip</a>
-            <a class="btn btn-line" href="#stack">See what we label<span class="btn-arrow" aria-hidden="true">↓</span></a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Instrument chrome: positioned against the hero, not the copy grid,
-           so it stays pinned under the HUD row. -->
-      <div class="hero-side">
-        <fieldset class="layer-box" data-layers>
-          <legend>Overlay layers</legend>
-          <button type="button" class="lyr" data-layer="hands" aria-pressed="true"><span class="lyr-dot"></span>Hand pose<em>42 kp</em></button>
-          <button type="button" class="lyr" data-layer="objects" aria-pressed="true"><span class="lyr-dot"></span>Objects<em>3D box</em></button>
-          <button type="button" class="lyr" data-layer="gaze" aria-pressed="true"><span class="lyr-dot"></span>Gaze<em>dwell</em></button>
-          <button type="button" class="lyr" data-layer="contact" aria-pressed="true"><span class="lyr-dot"></span>Contact<em>events</em></button>
-          <button type="button" class="lyr" data-layer="action" aria-pressed="true"><span class="lyr-dot"></span>Action<em>segments</em></button>
-        </fieldset>
-        <p class="hero-hint">Move your cursor over the frame to turn the head.</p>
-      </div>
-
-      <!-- Scrub / action segmentation strip -->
-      <div class="scrub">
-        <div class="shell scrub-inner">
-          <button type="button" class="scrub-play" aria-label="Pause capture">
-            <svg class="i-play" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z"/></svg>
-            <svg class="i-pause" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1h3v10H2zM7 1h3v10H7z"/></svg>
-          </button>
-
-          <div class="track" data-track>
-            <div class="track-segs" data-segs></div>
-            <div class="track-head" data-playhead></div>
-            <input type="range" min="0" max="1000" step="1" value="0" aria-label="Scrub the take timeline">
-          </div>
-
-          <span class="scrub-meta">
-            <b data-hud="phase">approach</b>
-            <span data-hud="clock">0.0 / 10.0s</span>
-          </span>
-        </div>
+  <main>
+    <section class="hero" aria-labelledby="hero-h">
+      <p class="label in" style="--d:0ms">Plate I &nbsp;·&nbsp; Michelangelo, <i>The Creation of Adam</i>, c. 1512</p>
+      <canvas class="plate" data-src="assets/plates/adam.png" data-cols="250" data-split="0.488" data-spark="0.492,0.47" aria-label="The two hands from Michelangelo's Creation of Adam, drawn in type. Adam's hand is set in machine digits." role="img"></canvas>
+      <div class="hero-text">
+        <h1 id="hero-h" class="in" style="--d:900ms">Teaching machines the work of&nbsp;human&nbsp;hands.</h1>
+        <p class="sub in" style="--d:1200ms">Farasa records first-person video and machine data on construction sites and factory floors, and labels every frame, so robots can learn real work.</p>
+        <p class="actions in" style="--d:1400ms"><button type="button" class="arrow" data-order>Request data <span aria-hidden="true">→</span></button><a href="about.html">About Farasa</a></p>
       </div>
     </section>
 
-    <!-- ══════════════ Capture spec marquee ══════════════ -->
-    <div class="marquee" data-theme="ink" aria-hidden="true">
-      <div class="marquee-run">
-        <span class="mq-set">
-          <b>Head-mounted</b><b>3840×2160 @ 60fps</b><b>122° HFOV</b><b>IMU-synced</b><b>21 keypoints per hand</b><b>Frame-accurate action segments</b><b>Consent-cleared on site</b><b>Rebar installation</b><b>Concrete pouring</b><b>Formwork assembly</b><b>Scaffolding</b><b>Masonry</b><b>Material transport</b><b>Tool handoffs</b><b>Drywall finishing</b><b>Excavation support</b><b>Steel fixing</b>
-        </span>
-        <span class="mq-set">
-          <b>Head-mounted</b><b>3840×2160 @ 60fps</b><b>122° HFOV</b><b>IMU-synced</b><b>21 keypoints per hand</b><b>Frame-accurate action segments</b><b>Consent-cleared on site</b><b>Rebar installation</b><b>Concrete pouring</b><b>Formwork assembly</b><b>Scaffolding</b><b>Masonry</b><b>Material transport</b><b>Tool handoffs</b><b>Drywall finishing</b><b>Excavation support</b><b>Steel fixing</b>
-        </span>
+    <section class="folio" aria-labelledby="ii">
+      <div class="folio-text reveal">
+        <p class="num" id="ii">II</p>
+        <p class="aph">For most of history, a trade was learned by doing it beside someone who already could.</p>
       </div>
-    </div>
-
-    <div class="cut cut-from-strip" data-cut="paper" aria-hidden="true"></div>
-
-    <!-- ══════════════ 01 · The gap ══════════════ -->
-    <section class="band" id="gap" data-theme="paper">
-      <div class="shell">
-        <header class="band-head">
-          <p class="kicker" data-rise><span class="kicker-idx">01</span>The gap</p>
-          <h2 data-rise>A robot sees from the inside. Almost every dataset was shot from the <em>outside</em>.</h2>
-          <p class="band-lede" data-rise>
-            Third-person capture, simulation, and staged lab demonstrations share one flaw:
-            the camera is never where the learner's camera will be. The geometry is wrong,
-            the occlusions are wrong, and the hands, the single most informative thing in
-            the frame, are the first thing lost.
-          </p>
-        </header>
-
-        <ol class="gaps" data-stagger>
-          <li>
-            <span class="gap-n">01</span>
-            <h3>Shot from outside</h3>
-            <p>A tripod sees a body moving. A head-mounted camera sees the task: what the hands touch, what gets occluded, and where attention goes next.</p>
-          </li>
-          <li>
-            <span class="gap-n">02</span>
-            <h3>Simulated</h3>
-            <p>Physics engines miss the friction, deformation, and unpredictability of real materials and real tools under real load.</p>
-          </li>
-          <li>
-            <span class="gap-n">03</span>
-            <h3>Lab-staged</h3>
-            <p>Controlled environments strip out the clutter, occlusion, and improvisation that define how work actually gets done.</p>
-          </li>
-          <li>
-            <span class="gap-n">04</span>
-            <h3>Too clean</h3>
-            <p>Short scripted clips can't teach long-horizon structure: setup, correction, interruption, recovery. That is most of what a real task is.</p>
-          </li>
-        </ol>
-      </div>
+      <figure class="reveal portrait">
+        <canvas class="plate" data-src="assets/plates/knitting.png" data-cols="130" role="img" aria-label="Millet's Knitting Lesson: a mother leans over a young girl and guides her hands on the needles, drawn in type."></canvas>
+        <figcaption class="label">Plate II &nbsp;·&nbsp; Jean-François Millet, <i>The Knitting Lesson</i>, c. 1860</figcaption>
+      </figure>
     </section>
 
-    <div class="cut" data-cut="ink" aria-hidden="true"></div>
-
-    <!-- ══════════════ 02 · Annotation stack ══════════════ -->
-    <section class="band band-stack" id="stack" data-theme="ink">
-      <div class="shell">
-        <header class="band-head">
-          <p class="kicker" data-rise><span class="kicker-idx">02</span>The annotation stack</p>
-          <h2 data-rise>Six labelled layers on <em>every frame</em> we ship.</h2>
-          <p class="band-lede" data-rise>
-            Nothing here is a model output we forwarded on. Every layer is produced by
-            technical annotators against your schema and cleared through a two-pass QA gate.
-          </p>
-        </header>
-
-        <div class="stack-grid">
-          <div class="stack-viewer">
-            <div class="viewer-frame">
-              <canvas class="feed-canvas" data-pov="stack" aria-label="Annotated egocentric frame showing the selected label layer"></canvas>
-              <div class="feed-grade"></div>
-              <div class="feed-vignette"></div>
-              <div class="viewer-tag"><i></i><span data-hud="stack-tag">RGB</span></div>
-            </div>
-            <div class="viewer-foot">
-              <span>FRM 0512 · take 0042</span>
-              <span data-hud="stack-count">layer 1 / 6</span>
-            </div>
-          </div>
-
-          <ol class="stack-list" data-stacklist>
-            <li class="sl on" data-layer="rgb">
-              <button type="button">
-                <span class="sl-n">L0</span>
-                <span class="sl-body">
-                  <span class="sl-title">Raw capture</span>
-                  <span class="sl-copy">3840×2160 at 60fps, head-mounted, 122° horizontal field of view, hardware-timestamped against a 200 Hz IMU.</span>
-                </span>
-              </button>
-            </li>
-            <li class="sl" data-layer="hands">
-              <button type="button">
-                <span class="sl-n">L1</span>
-                <span class="sl-body">
-                  <span class="sl-title">Hand pose</span>
-                  <span class="sl-copy">21 keypoints per hand with per-joint visibility flags, tracked through occlusion, glove, and motion blur, which is exactly where automated trackers give up.</span>
-                </span>
-              </button>
-            </li>
-            <li class="sl" data-layer="objects">
-              <button type="button">
-                <span class="sl-n">L2</span>
-                <span class="sl-body">
-                  <span class="sl-title">Objects</span>
-                  <span class="sl-copy">Amodal 3D boxes and instance masks for tools, materials, and fixtures, with stable track IDs held across the whole take.</span>
-                </span>
-              </button>
-            </li>
-            <li class="sl" data-layer="gaze">
-              <button type="button">
-                <span class="sl-n">L3</span>
-                <span class="sl-body">
-                  <span class="sl-title">Gaze</span>
-                  <span class="sl-copy">Where the worker is actually looking, with dwell duration. The cheapest supervision signal in the frame, and almost nobody labels it.</span>
-                </span>
-              </button>
-            </li>
-            <li class="sl" data-layer="contact">
-              <button type="button">
-                <span class="sl-n">L4</span>
-                <span class="sl-body">
-                  <span class="sl-title">Contact</span>
-                  <span class="sl-copy">Frame-exact make and break events for every hand-object contact, typed by grasp: pinch, power, hook, support.</span>
-                </span>
-              </button>
-            </li>
-            <li class="sl" data-layer="action">
-              <button type="button">
-                <span class="sl-n">L5</span>
-                <span class="sl-body">
-                  <span class="sl-title">Action</span>
-                  <span class="sl-copy">Nested action segments with verb-object structure, from the atomic reach all the way up to the full multi-hour task.</span>
-                </span>
-              </button>
-            </li>
-          </ol>
-        </div>
+    <section class="folio wide" aria-labelledby="iii">
+      <div class="folio-text reveal">
+        <p class="num" id="iii">III</p>
+        <p class="aph">A robot can’t stand beside anyone. It learns from recordings. So we record the work from where the worker stands: what they see, what their hands do, and what the machines beside them are doing. Then we label every frame.</p>
       </div>
+      <figure class="reveal">
+        <video id="headcam" class="src-video" src="assets/media/headcam.mp4" muted loop playsinline preload="auto" aria-hidden="true"></video>
+        <canvas class="plate" data-video="#headcam" data-kp="assets/data/kp_headcam.json" data-cols="170" data-tone="ink" role="img" aria-label="Head-mounted camera footage from a factory line, drawn in type, with the worker's tracked hand joints marked."></canvas>
+        <figcaption class="label">Plate III &nbsp;·&nbsp; Head-cam, factory floor</figcaption>
+      </figure>
     </section>
 
-    <div class="cut" data-cut="paper" aria-hidden="true"></div>
-
-    <!-- ══════════════ 03 · What we deliver ══════════════ -->
-    <section class="band" id="deliver" data-theme="paper">
-      <div class="shell">
-        <header class="band-head">
-          <p class="kicker" data-rise><span class="kicker-idx">03</span>What we deliver</p>
-          <h2 data-rise>Four ways to get first-person data out of a live job site.</h2>
-        </header>
-
-        <div class="cards" data-stagger>
-          <article class="card">
-            <span class="card-n">01</span>
-            <h3>Annotated egocentric datasets</h3>
-            <p>First-person video from real construction sites, segmented, labelled, and QA'd frame by frame against your schema.</p>
-            <span class="card-rule"></span>
-          </article>
-          <article class="card">
-            <span class="card-n">02</span>
-            <h3>Long-horizon trajectories</h3>
-            <p>Complete multi-step takes, setup to finish, with the mistakes and corrections left in. Structured for imitation learning pipelines.</p>
-            <span class="card-rule"></span>
-          </article>
-          <article class="card">
-            <span class="card-n">03</span>
-            <h3>Commissioned capture</h3>
-            <p>Targeted collection campaigns on active job sites, scoped to the tasks, tools, and viewpoints your models are currently missing.</p>
-            <span class="card-rule"></span>
-          </article>
-          <article class="card">
-            <span class="card-n">04</span>
-            <h3>Annotation as a service</h3>
-            <p>Send us your own footage. It runs through the same stack, the same annotators, and the same QA gate as everything we capture.</p>
-            <span class="card-rule"></span>
-          </article>
-        </div>
-      </div>
+    <section class="coda" aria-label="Request data">
+      <p class="verse reveal"><span>The internet taught machines to talk.</span><span>Nothing has taught them to work.</span></p>
+      <p class="reveal"><button type="button" class="arrow big" data-order>Request data <span aria-hidden="true">→</span></button></p>
     </section>
-
-    <div class="cut" data-cut="ink" aria-hidden="true"></div>
-
-    <!-- ══════════════ 04 · Why Farasa ══════════════ -->
-    <section class="band" id="why" data-theme="ink">
-      <div class="shell">
-        <header class="band-head">
-          <p class="kicker" data-rise><span class="kicker-idx">04</span>Why Farasa</p>
-          <h2 data-rise>Ground truth from the <em>ground up</em>.</h2>
-        </header>
-
-        <div class="stats" data-stagger aria-label="Collection capacity">
-          <div class="stat">
-            <span class="stat-n"><span data-counter="2000" data-decimals="0">0</span><i>+</i></span>
-            <span class="stat-l">hours captured</span>
-          </div>
-          <div class="stat">
-            <span class="stat-n"><span data-counter="12" data-decimals="0">0</span></span>
-            <span class="stat-l">active job sites</span>
-          </div>
-          <div class="stat">
-            <span class="stat-n"><span data-counter="42" data-decimals="0">0</span></span>
-            <span class="stat-l">tracked keypoints per frame</span>
-          </div>
-          <div class="stat">
-            <span class="stat-n"><span data-counter="99.2" data-decimals="1">0</span><i>%</i></span>
-            <span class="stat-l">annotation QA pass rate</span>
-          </div>
-        </div>
-
-        <div class="whys" data-stagger>
-          <div class="why">
-            <h3>Live site access</h3>
-            <p>Standing relationships with active construction sites. Not staged reenactments, not one-off shoots with a rented crew.</p>
-          </div>
-          <div class="why">
-            <h3>Expert annotation</h3>
-            <p>Technical teams who understand both the labour being performed and the models it is going to train.</p>
-          </div>
-          <div class="why">
-            <h3>High fidelity, controlled cost</h3>
-            <p>Real-world data at a cost structure that makes collection at genuine scale practical rather than aspirational.</p>
-          </div>
-          <div class="why">
-            <h3>Built for heavy physical work</h3>
-            <p>A deliberate focus on construction and demanding physical tasks: the hardest domain in embodied AI, chosen on purpose.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="cut" data-cut="ink" aria-hidden="true"></div>
-
-    <!-- ══════════════ 05 · Market Opportunity ══════════════ -->
-    <section class="band" id="market" data-theme="ink">
-      <div class="shell">
-        <header class="band-head">
-          <p class="kicker" data-rise><span class="kicker-idx">05</span>Market</p>
-          <h2 data-rise>The gap between what robots need and what they can see.</h2>
-        </header>
-
-        <div class="stats" data-stagger aria-label="Market opportunity">
-          <div class="stat">
-            <span class="stat-n"><span data-counter="442" data-decimals="0">0</span><i>M</i></span>
-            <span class="stat-l">construction robotics market size (2025)</span>
-          </div>
-          <div class="stat">
-            <span class="stat-n"><span data-counter="15.5" data-decimals="1">0</span><i>%</i></span>
-            <span class="stat-l">annual growth rate</span>
-          </div>
-          <div class="stat">
-            <span class="stat-n"><span data-counter="2" data-decimals="0">0</span><i>%</i></span>
-            <span class="stat-l">construction sites using robots today</span>
-          </div>
-          <div class="stat">
-            <span class="stat-n"><span data-counter="98" data-decimals="0">0</span><i>%</i></span>
-            <span class="stat-l">of the market still untapped</span>
-          </div>
-        </div>
-
-        <div class="market-note" data-rise>
-          <p>Almost every dataset for embodied AI was captured from the outside — tripods, simulation, or lab benches. The geometry is wrong, the occlusions are wrong, and the hands, the single most informative thing in the frame, are the first thing lost. Farasa closes that loop.</p>
-        </div>
-      </div>
-    </section>
-
-    <div class="cut" data-cut="paper" aria-hidden="true"></div>
-
-    <!-- ══════════════ 06 · Process ══════════════ -->
-    <section class="band" id="process" data-theme="paper">
-      <div class="shell">
-        <header class="band-head">
-          <p class="kicker" data-rise><span class="kicker-idx">06</span>How it works</p>
-          <h2 data-rise>From job site to training set.</h2>
-        </header>
-
-        <ol class="steps" data-rail>
-          <li class="step">
-            <span class="step-n">1</span>
-            <h3>Scope</h3>
-            <p>We define the tasks, viewpoints, sensors, and annotation schema with your team before anyone puts a camera on.</p>
-          </li>
-          <li class="step">
-            <span class="step-n">2</span>
-            <h3>Capture</h3>
-            <p>Operators wear the rig through a real shift on an active site, with full consent and safety compliance.</p>
-          </li>
-          <li class="step">
-            <span class="step-n">3</span>
-            <h3>Annotate</h3>
-            <p>Technical annotators label pose, objects, gaze, contact, and task structure against your specification.</p>
-          </li>
-          <li class="step">
-            <span class="step-n">4</span>
-            <h3>Deliver</h3>
-            <p>Two-pass QA, then the dataset ships in your format, ready for training and evaluation on arrival.</p>
-          </li>
-          <span class="rail" aria-hidden="true"><i data-railfill></i></span>
-        </ol>
-      </div>
-    </section>
-
-    <div class="cut" data-cut="ink" aria-hidden="true"></div>
-
-    <!-- ══════════════ 06 · Who we serve ══════════════ -->
-    <section class="band" id="serve" data-theme="ink">
-      <div class="shell">
-        <header class="band-head">
-          <p class="kicker" data-rise><span class="kicker-idx">07</span>Who we serve</p>
-          <h2 data-rise>Teams building machines that have to work in the real world.</h2>
-        </header>
-
-        <ul class="serve" data-stagger>
-          <li><span class="serve-i">01</span>Construction robotics companies<span class="serve-arrow" aria-hidden="true">→</span></li>
-          <li><span class="serve-i">02</span>Embodied AI research labs<span class="serve-arrow" aria-hidden="true">→</span></li>
-          <li><span class="serve-i">03</span>Humanoid robotics teams<span class="serve-arrow" aria-hidden="true">→</span></li>
-          <li><span class="serve-i">04</span>Physical AI data platforms<span class="serve-arrow" aria-hidden="true">→</span></li>
-        </ul>
-      </div>
-    </section>
-
-    <div class="cut" data-cut="paper" aria-hidden="true"></div>
-
-    <!-- ══════════════ 07 · Contact ══════════════ -->
-    <section class="band band-contact" id="contact" data-theme="paper">
-      <div class="shell contact-grid">
-        <div class="contact-copy">
-          <p class="kicker" data-rise><span class="kicker-idx">08</span>Get started</p>
-          <h2 data-rise>See the footage for yourself.</h2>
-          <p class="band-lede" data-rise>
-            Tell us what your models are missing and we'll send back a sample take with the
-            full label stack attached. We reply within two business days.
-          </p>
-          <a class="mailto" href="mailto:ahmed.zeeshan@vanderbilt.edu">ahmed.zeeshan@vanderbilt.edu</a>
-        </div>
-
-        <!-- To collect submissions server-side, put your form endpoint in
-             data-endpoint (Formspree, Basin, Web3Forms, your own handler).
-             With it set, the form POSTs JSON. Without it, the form falls back
-             to opening a pre-filled email. See README. -->
-        <form class="form" data-form
-              data-endpoint=""
-              data-mailto="ahmed.zeeshan@vanderbilt.edu"
-              novalidate>
-          <div class="form-row">
-            <label>
-              <span>Name</span>
-              <input type="text" name="name" autocomplete="name" required>
-            </label>
-            <label>
-              <span>Work email</span>
-              <input type="email" name="email" autocomplete="email" required>
-            </label>
-          </div>
-          <label>
-            <span>What are you building?</span>
-            <textarea name="message" rows="4" placeholder="The tasks, the viewpoints, and the labels your models are missing"></textarea>
-          </label>
-          <button type="submit" class="btn btn-solid">Request a sample clip</button>
-          <p class="form-note" data-form-status role="status" aria-live="polite"></p>
-        </form>
-      </div>
-    </section>
-
   </main>
 
-  <div class="cut" data-cut="ink" aria-hidden="true"></div>
-
-  <!-- ══════════════ Footer ══════════════ -->
-  <footer class="site-footer" data-theme="ink">
-    <div class="shell">
-      <div class="foot-grid">
-        <div>
-          <a class="brand" href="#top">
-            <span class="brand-eye" aria-hidden="true"><i></i></span>
-            <span class="brand-word">Farasa</span>
-          </a>
-          <p class="foot-blurb">Annotated egocentric video of real human labour, captured on active construction sites.</p>
-        </div>
-        <div class="foot-col">
-          <span class="foot-h">Contact</span>
-          <a href="mailto:ahmed.zeeshan@vanderbilt.edu">ahmed.zeeshan@vanderbilt.edu</a>
-        </div>
-        <div class="foot-col">
-          <span class="foot-h">Index</span>
-          <a href="#stack">Annotation stack</a>
-          <a href="#deliver">What we deliver</a>
-          <a href="#process">How it works</a>
-          <a href="#market">Market</a>
-        </div>
-      </div>
-      <div class="wordmark" aria-hidden="true">FARASA</div>
-    </div>
+  <footer class="foot">
+    <span>Farasa &nbsp;·&nbsp; 2026</span>
+    <span><a href="about.html">About</a> &nbsp;·&nbsp; <button type="button" data-order>Request data</button></span>
   </footer>
 
-  <script src="js/renderer.js"></script>
-  <script src="js/app.js"></script>
-  <script>
-    // Register service worker for offline support
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').catch(() => {});
-    }
-  </script>
+  <script src="assets/js/ascii.js"></script>
+  <script src="assets/js/order.js"></script>
+  <script src="assets/js/site.js"></script>
 </body>
 </html>
