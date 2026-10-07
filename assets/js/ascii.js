@@ -23,6 +23,8 @@
       this.video = cv.dataset.video ? document.querySelector(cv.dataset.video) : null;
       this.tone = cv.dataset.tone === "ink" ? INK : RUST;
       this.overlay = "overlay" in cv.dataset;
+      this.lensR = +cv.dataset.lens || 110;
+      this.zoom = +cv.dataset.zoom || 1;
       this.off = document.createElement("canvas"); this.og = this.off.getContext("2d", { willReadFrequently: true });
       this.ptr = { x: -1e4, y: -1e4, r: 0, tr: 0 };
       this.visible = false; this.revealAt = 0; this.last = 0;
@@ -62,6 +64,13 @@
       this.delay = new Float32Array(this.c * this.r);
       for (let i = 0; i < this.dens.length; i++) { const x = (i % this.c) / this.c; this.delay[i] = x * 1.1 + hash(i) * 0.55 + (Math.floor(i / this.c) / this.r) * 0.15; }
       if (this.img) this.sample(this.img, this.img.width, this.img.height, false);
+      if (this.img && this.zoom > 1) {   // a finer grid for the magnifier: one cell per zoomed character
+        const hc = Math.round(this.c * this.zoom), hr = Math.round(this.r * this.zoom), hcv = document.createElement("canvas");
+        hcv.width = hc; hcv.height = hr; const hg = hcv.getContext("2d", { willReadFrequently: true }); hg.imageSmoothingQuality = "high";
+        hg.drawImage(this.img, 0, 0, hc, hr); const hd = hg.getImageData(0, 0, hc, hr).data;
+        this.hi = new Float32Array(hc * hr); for (let i = 0; i < this.hi.length; i++) this.hi[i] = hd[i * 4] / 255;
+        this.hc = hc; this.hr = hr;
+      }
       this.dirty = true;
     }
     sample(src, sw, sh, isVideo) {
@@ -82,7 +91,7 @@
       if (this.video) { if (this.video.readyState < 2) return; this.sample(this.video, 0, 0, true); }
       const g = this.g, c = this.c, cw = this.cw, ch = this.ch, t = (now - this.revealAt) / 1000;
       this.ptr.r += (this.ptr.tr - this.ptr.r) * 0.12;
-      const R = 110 * this.ptr.r, px = this.ptr.x, py = this.ptr.y;
+      const R = this.lensR * this.ptr.r, px = this.ptr.x, py = this.ptr.y;
       g.clearRect(0, 0, this.cv.width, this.cv.height);
       g.font = `400 ${this.fs}px ${FONT}`; g.textBaseline = "top";
       // bucket cells by colour and weight so fillStyle changes a handful of times per frame
@@ -90,9 +99,18 @@
       const N = this.dens.length, splitCol = this.split >= 0 ? this.split * c : -1;
       // over real footage, type only appears inside the lens: the machine's view of the frame
       if (this.overlay && R > 1) { g.fillStyle = "rgba(243,238,229,.94)"; g.beginPath(); g.arc(px, py, R, 0, Math.PI * 2); g.fill(); }
+      const Z = this.zoom, pc = px / cw, pr = py / ch;
       for (let i = 0; i < N; i++) {
-        const v = this.dens[i]; if (v < 0.07) continue;
-        if (this.overlay) { if (R <= 1) break; const dx = (i % c) * cw + cw / 2 - px, dy = ((i / c) | 0) * ch + ch / 2 - py; if (dx * dx + dy * dy > R * R) continue; }
+        let v = this.dens[i];
+        if (this.overlay) {
+          if (R <= 1) break;
+          const dx = (i % c) * cw + cw / 2 - px, dy = ((i / c) | 0) * ch + ch / 2 - py; if (dx * dx + dy * dy > R * R) continue;
+          if (Z > 1) {   // magnify: read the cell under the cursor, scaled up
+            const sc = Math.round(pc * Z + ((i % c) - pc)), sr = Math.round(pr * Z + (((i / c) | 0) - pr));
+            v = this.hi && sc >= 0 && sc < this.hc && sr >= 0 && sr < this.hr ? this.hi[sr * this.hc + sc] : 0;
+          }
+        }
+        if (v < 0.07) continue;
         const col = i % c, row = (i / c) | 0, x = col * cw, y = row * ch;
         const k = reduced ? 1 : Math.min(1, Math.max(0, (t - this.delay[i]) / 0.35));
         if (k <= 0) continue;

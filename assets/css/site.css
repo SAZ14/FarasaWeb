@@ -56,6 +56,7 @@ h1 { font: 400 clamp(38px, 5vw, 76px)/1.03 var(--serif); letter-spacing: -.015em
 .folio { max-width: 1560px; margin: 0 auto; padding: clamp(100px, 18vh, 200px) var(--g); display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 40px clamp(40px, 6vw, 120px); align-items: center; border-top: 1px solid var(--rule); }
 .folio figure { margin: 0; }
 .folio figcaption { margin-top: 16px; }
+.folio figure.portrait { max-width: 600px; justify-self: center; width: 100%; }
 .painting { max-width: 620px; justify-self: center; width: 100%; }
 .painting-frame { position: relative; box-shadow: 0 24px 60px rgba(34,31,27,.14); }
 .painting-frame img { display: block; width: 100%; height: auto; }
