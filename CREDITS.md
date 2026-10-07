@@ -1,0 +1,7 @@
+# Credits
+Artworks (public domain, via Wikimedia Commons), converted to ink-density maps for the type renderer:
+- Michelangelo, The Creation of Adam, c. 1512 — https://commons.wikimedia.org/wiki/File:Michelangelo_-_Creation_of_Adam_(cropped).jpg
+- Jean-François Millet, The Gleaners, 1857 — https://commons.wikimedia.org/wiki/File:Jean-Fran%C3%A7ois_Millet_-_Gleaners_-_Google_Art_Project_2.jpg
+- Albrecht Dürer, Praying Hands, 1508 — https://commons.wikimedia.org/wiki/File:Albrecht_D%C3%BCrer_-_Praying_Hands,_1508_-_Google_Art_Project.jpg
+Head-cam footage: Egocentric-10K, Build AI (Apache 2.0), factory051_worker002_00005.mp4. Hand keypoints via MediaPipe.
+Fonts: EB Garamond, IBM Plex Mono (SIL Open Font License), loaded from Google Fonts.

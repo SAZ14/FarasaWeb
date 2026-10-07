@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Farasa — Teaching machines the work of human hands</title>
+  <meta name="description" content="First-person video and machine data from construction sites and factory floors, labelled frame by frame, so robots can learn real work." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script>document.documentElement.classList.add("js")</script>
+  <link rel="stylesheet" href="assets/css/site.css" />
+</head>
+<body class="home">
+  <header class="nav">
+    <a class="wm" href="index.html">Farasa</a>
+    <nav aria-label="Main">
+      <a href="about.html">About</a>
+      <button type="button" data-order>Request data</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-h">
+      <p class="label in" style="--d:0ms">Plate I &nbsp;·&nbsp; Michelangelo, <i>The Creation of Adam</i>, c. 1512</p>
+      <canvas class="plate" data-src="assets/plates/adam.png" data-cols="210" data-split="0.488" data-spark="0.492,0.47" aria-label="The two hands from Michelangelo's Creation of Adam, drawn in type. Adam's hand is set in machine digits." role="img"></canvas>
+      <p class="hint label in" style="--d:2200ms" aria-hidden="true">Adam's hand is set in machine type. Move across the plate to trade them.</p>
+      <div class="hero-text">
+        <h1 id="hero-h" class="in" style="--d:900ms">Teaching machines the work of&nbsp;human&nbsp;hands.</h1>
+        <p class="sub in" style="--d:1200ms">Farasa records first-person video and machine data on construction sites and factory floors, and labels every frame, so robots can learn real work.</p>
+        <p class="actions in" style="--d:1400ms"><button type="button" class="arrow" data-order>Request data <span aria-hidden="true">→</span></button><a href="about.html">About Farasa</a></p>
+      </div>
+    </section>
+
+    <section class="folio" aria-labelledby="ii">
+      <div class="folio-text reveal">
+        <p class="num" id="ii">II</p>
+        <p class="aph">For most of history, a trade was learned by doing it beside someone who already could. Almost none of it was ever written down.</p>
+      </div>
+      <figure class="reveal">
+        <canvas class="plate" data-src="assets/plates/gleaners.png" data-cols="120" role="img" aria-label="Millet's Gleaners, three women bent over a field, drawn in type."></canvas>
+        <figcaption class="label">Plate II &nbsp;·&nbsp; Jean-François Millet, <i>The Gleaners</i>, 1857</figcaption>
+      </figure>
+    </section>
+
+    <section class="folio wide" aria-labelledby="iii">
+      <div class="folio-text reveal">
+        <p class="num" id="iii">III</p>
+        <p class="aph">So we write it down. We record the work from where the worker stands: what they see, what their hands do, and what the machines beside them are doing. Then we label every frame.</p>
+      </div>
+      <figure class="reveal">
+        <video id="headcam" src="assets/media/headcam.mp4" muted loop playsinline preload="auto" aria-hidden="true"></video>
+        <canvas class="plate" data-video="#headcam" data-kp="assets/data/kp_headcam.json" data-cols="170" data-tone="ink" role="img" aria-label="Head-mounted camera footage from a factory line, drawn in type, with the worker's tracked hand joints marked."></canvas>
+        <figcaption class="label">Plate III &nbsp;·&nbsp; Head-cam, factory floor. Tracked hand joints set in rust.</figcaption>
+      </figure>
+    </section>
+
+    <section class="coda" aria-label="Request data">
+      <p class="verse reveal"><span>The internet taught machines to talk.</span><span>Nothing has taught them to work.</span></p>
+      <p class="reveal"><button type="button" class="arrow big" data-order>Request data <span aria-hidden="true">→</span></button></p>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>Farasa &nbsp;·&nbsp; 2026</span>
+    <span><a href="about.html">About</a> &nbsp;·&nbsp; <button type="button" data-order>Request data</button></span>
+  </footer>
+
+  <script src="assets/js/ascii.js"></script>
+  <script src="assets/js/order.js"></script>
+  <script src="assets/js/site.js"></script>
+</body>
+</html>
