@@ -51,11 +51,9 @@
         <p class="num" id="iii">III</p>
         <p class="aph">A robot can’t stand beside anyone. It learns from recordings. So we record the work from where the worker stands: what they see, what their hands do, and what the machines beside them are doing. Then we label every frame.</p>
       </div>
-      <figure class="reveal cam">
-        <div class="cam-frame">
-          <video id="headcam" src="assets/media/headcam.mp4" muted loop playsinline preload="auto" aria-label="Head-mounted camera footage from a factory line, with the worker's tracked hand joints marked."></video>
-          <canvas class="plate" data-video="#headcam" data-kp="assets/data/kp_headcam.json" data-cols="170" data-overlay aria-hidden="true"></canvas>
-        </div>
+      <figure class="reveal">
+        <video id="headcam" class="src-video" src="assets/media/headcam.mp4" muted loop playsinline preload="auto" aria-hidden="true"></video>
+        <canvas class="plate" data-video="#headcam" data-kp="assets/data/kp_headcam.json" data-cols="170" data-tone="ink" role="img" aria-label="Head-mounted camera footage from a factory line, drawn in type, with the worker's tracked hand joints marked."></canvas>
         <figcaption class="label">Plate III &nbsp;·&nbsp; Head-cam, factory floor</figcaption>
       </figure>
     </section>
