@@ -22,6 +22,7 @@
       this.spark = cv.dataset.spark ? cv.dataset.spark.split(",").map(Number) : null;
       this.video = cv.dataset.video ? document.querySelector(cv.dataset.video) : null;
       this.tone = cv.dataset.tone === "ink" ? INK : RUST;
+      this.overlay = "overlay" in cv.dataset;
       this.off = document.createElement("canvas"); this.og = this.off.getContext("2d", { willReadFrequently: true });
       this.ptr = { x: -1e4, y: -1e4, r: 0, tr: 0 };
       this.visible = false; this.revealAt = 0; this.last = 0;
@@ -50,8 +51,8 @@
       const adv = this.g.measureText("M").width / 100;           // advance per px of font size
       this.fs = w / (cols * adv); this.cw = w / cols; this.ch = this.fs * 1.12;
       this.c = cols; this.r = Math.max(1, Math.round((w * this.aspect) / this.ch));
-      const h = this.r * this.ch;
-      this.cv.style.height = h + "px";
+      let h = this.r * this.ch;
+      if (this.overlay) { h = w * this.aspect; this.ch = h / this.r; } else this.cv.style.height = h + "px";
       this.cv.width = Math.round(w * dpr); this.cv.height = Math.round(h * dpr);
       this.g.setTransform(dpr, 0, 0, dpr, 0, 0);
       this.off.width = this.c; this.off.height = this.r;
@@ -86,14 +87,17 @@
       // bucket cells by colour and weight so fillStyle changes a handful of times per frame
       const B = { h: [[], [], [], []], m: [[], [], [], []], hot: [] };
       const N = this.dens.length, splitCol = this.split >= 0 ? this.split * c : -1;
+      // over real footage, type only appears inside the lens: the machine's view of the frame
+      if (this.overlay && R > 1) { g.fillStyle = "rgba(243,238,229,.94)"; g.beginPath(); g.arc(px, py, R, 0, Math.PI * 2); g.fill(); }
       for (let i = 0; i < N; i++) {
         const v = this.dens[i]; if (v < 0.07) continue;
+        if (this.overlay) { if (R <= 1) break; const dx = (i % c) * cw + cw / 2 - px, dy = ((i / c) | 0) * ch + ch / 2 - py; if (dx * dx + dy * dy > R * R) continue; }
         const col = i % c, row = (i / c) | 0, x = col * cw, y = row * ch;
         const k = reduced ? 1 : Math.min(1, Math.max(0, (t - this.delay[i]) / 0.35));
         if (k <= 0) continue;
         let machine = splitCol >= 0 && col < splitCol + (hash(row * 7.3) - 0.5) * 2.2;
         let lens = 0;
-        if (R > 1) { const dx = x + cw / 2 - px, dy = y + ch / 2 - py, dd = Math.sqrt(dx * dx + dy * dy); if (dd < R) { lens = 1 - dd / R; machine = !machine; } }
+        if (R > 1) { const dx = x + cw / 2 - px, dy = y + ch / 2 - py, dd = Math.sqrt(dx * dx + dy * dy); if (dd < R) { lens = 1 - dd / R; if (!this.overlay) machine = !machine; } }
         if (!reduced && this.flip[i] < now && hash(i + Math.floor(now / 900) * 13.1) > 0.9965) this.flip[i] = now + 140;
         const flicker = this.flip[i] > now;
         let chr;
@@ -101,7 +105,7 @@
         else if (machine) chr = v < 0.18 ? "." : (hash(i * 3.1 + (flicker ? 1 : 0)) > 0.5 ? "1" : "0");
         else { let q = Math.min(9, Math.max(1, Math.floor(v * 10))); if (flicker) q = Math.max(1, q - 1); chr = RAMP[q]; }
         const w = Math.min(3, Math.floor(v * 4 * k));
-        if (lens > 0.55) B.hot.push(chr, x, y); else (machine ? B.m : B.h)[w].push(chr, x, y);
+        if (lens > 0.55 && !this.overlay) B.hot.push(chr, x, y); else (machine ? B.m : B.h)[w].push(chr, x, y);
       }
       const A = [0.42, 0.62, 0.82, 1];
       [["h", this.tone], ["m", INK]].forEach(([key, rgb]) => B[key].forEach((arr, w) => {

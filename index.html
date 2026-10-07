@@ -25,7 +25,6 @@
     <section class="hero" aria-labelledby="hero-h">
       <p class="label in" style="--d:0ms">Plate I &nbsp;·&nbsp; Michelangelo, <i>The Creation of Adam</i>, c. 1512</p>
       <canvas class="plate" data-src="assets/plates/adam.png" data-cols="210" data-split="0.488" data-spark="0.492,0.47" aria-label="The two hands from Michelangelo's Creation of Adam, drawn in type. Adam's hand is set in machine digits." role="img"></canvas>
-      <p class="hint label in" style="--d:2200ms" aria-hidden="true">Adam's hand is set in machine type. Move across the plate to trade them.</p>
       <div class="hero-text">
         <h1 id="hero-h" class="in" style="--d:900ms">Teaching machines the work of&nbsp;human&nbsp;hands.</h1>
         <p class="sub in" style="--d:1200ms">Farasa records first-person video and machine data on construction sites and factory floors, and labels every frame, so robots can learn real work.</p>
@@ -36,7 +35,7 @@
     <section class="folio" aria-labelledby="ii">
       <div class="folio-text reveal">
         <p class="num" id="ii">II</p>
-        <p class="aph">For most of history, a trade was learned by doing it beside someone who already could. Almost none of it was ever written down.</p>
+        <p class="aph">For most of history, a trade was learned by doing it beside someone who already could.</p>
       </div>
       <figure class="reveal">
         <canvas class="plate" data-src="assets/plates/gleaners.png" data-cols="120" role="img" aria-label="Millet's Gleaners, three women bent over a field, drawn in type."></canvas>
@@ -47,12 +46,14 @@
     <section class="folio wide" aria-labelledby="iii">
       <div class="folio-text reveal">
         <p class="num" id="iii">III</p>
-        <p class="aph">So we write it down. We record the work from where the worker stands: what they see, what their hands do, and what the machines beside them are doing. Then we label every frame.</p>
+        <p class="aph">A robot can't stand beside anyone. It learns from recordings. So we record the work from where the worker stands: what they see, what their hands do, and what the machines beside them are doing. Then we label every frame.</p>
       </div>
-      <figure class="reveal">
-        <video id="headcam" src="assets/media/headcam.mp4" muted loop playsinline preload="auto" aria-hidden="true"></video>
-        <canvas class="plate" data-video="#headcam" data-kp="assets/data/kp_headcam.json" data-cols="170" data-tone="ink" role="img" aria-label="Head-mounted camera footage from a factory line, drawn in type, with the worker's tracked hand joints marked."></canvas>
-        <figcaption class="label">Plate III &nbsp;·&nbsp; Head-cam, factory floor. Tracked hand joints set in rust.</figcaption>
+      <figure class="reveal cam">
+        <div class="cam-frame">
+          <video id="headcam" src="assets/media/headcam.mp4" muted loop playsinline preload="auto" aria-label="Head-mounted camera footage from a factory line, with the worker's tracked hand joints marked."></video>
+          <canvas class="plate" data-video="#headcam" data-kp="assets/data/kp_headcam.json" data-cols="170" data-overlay aria-hidden="true"></canvas>
+        </div>
+        <figcaption class="label">Plate III &nbsp;·&nbsp; Head-cam, factory floor</figcaption>
       </figure>
     </section>
 
