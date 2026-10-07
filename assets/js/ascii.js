@@ -58,6 +58,7 @@
       this.off.width = this.c; this.off.height = this.r;
       this.dens = new Float32Array(this.c * this.r);
       this.flip = new Float32Array(this.c * this.r);
+      this.edge = new Float32Array(this.c * this.r); this.ang = new Float32Array(this.c * this.r);
       this.delay = new Float32Array(this.c * this.r);
       for (let i = 0; i < this.dens.length; i++) { const x = (i % this.c) / this.c; this.delay[i] = x * 1.1 + hash(i) * 0.55 + (Math.floor(i / this.c) / this.r) * 0.15; }
       if (this.img) this.sample(this.img, this.img.width, this.img.height, false);
@@ -70,7 +71,7 @@
       const d = o.getImageData(0, 0, this.c, this.r).data;
       for (let i = 0, j = 0; i < this.dens.length; i++, j += 4) {
         if (isVideo) { const l = (d[j] * .299 + d[j + 1] * .587 + d[j + 2] * .114) / 255; this.dens[i] = Math.pow(Math.min(1, Math.max(0, (l - 0.3) * 1.55)), 1.15); }
-        else this.dens[i] = d[j] / 255;
+        else { this.dens[i] = d[j] / 255; this.edge[i] = d[j + 1] / 255; this.ang[i] = d[j + 2] / 255 * 180; }
       }
     }
     draw(now) {
@@ -102,9 +103,10 @@
         const flicker = this.flip[i] > now;
         let chr;
         if (k < 1) chr = RAMP[1 + Math.floor(hash(i + now * 0.01) * 9)];
+        else if (this.edge[i] > 0.42) { const a = this.ang[i]; chr = a < 22.5 || a >= 157.5 ? "-" : a < 67.5 ? "/" : a < 112.5 ? "|" : "\\"; }
         else if (machine) chr = v < 0.18 ? "." : (hash(i * 3.1 + (flicker ? 1 : 0)) > 0.5 ? "1" : "0");
         else { let q = Math.min(9, Math.max(1, Math.floor(v * 10))); if (flicker) q = Math.max(1, q - 1); chr = RAMP[q]; }
-        const w = Math.min(3, Math.floor(v * 4 * k));
+        const w = this.edge[i] > 0.42 ? 3 : Math.min(3, Math.floor(v * 4 * k));
         if (lens > 0.55 && !this.overlay) B.hot.push(chr, x, y); else (machine ? B.m : B.h)[w].push(chr, x, y);
       }
       const A = [0.42, 0.62, 0.82, 1];
