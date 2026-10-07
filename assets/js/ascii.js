@@ -103,10 +103,9 @@
         const flicker = this.flip[i] > now;
         let chr;
         if (k < 1) chr = RAMP[1 + Math.floor(hash(i + now * 0.01) * 9)];
-        else if (this.edge[i] > 0.42) { const a = this.ang[i]; chr = a < 22.5 || a >= 157.5 ? "-" : a < 67.5 ? "/" : a < 112.5 ? "|" : "\\"; }
-        else if (machine) chr = v < 0.18 ? "." : (hash(i * 3.1 + (flicker ? 1 : 0)) > 0.5 ? "1" : "0");
+                else if (machine) chr = v < 0.18 ? "." : (hash(i * 3.1 + (flicker ? 1 : 0)) > 0.5 ? "1" : "0");
         else { let q = Math.min(9, Math.max(1, Math.floor(v * 10))); if (flicker) q = Math.max(1, q - 1); chr = RAMP[q]; }
-        const w = this.edge[i] > 0.42 ? 3 : Math.min(3, Math.floor(v * 4 * k));
+        const w = Math.min(3, Math.floor(v * 4 * k));
         if (lens > 0.55 && !this.overlay) B.hot.push(chr, x, y); else (machine ? B.m : B.h)[w].push(chr, x, y);
       }
       const A = [0.42, 0.62, 0.82, 1];
