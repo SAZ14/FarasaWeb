@@ -3,71 +3,101 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Farasa — Teaching machines the work of human hands</title>
-  <meta name="description" content="First-person video and machine data from construction sites and factory floors, labelled frame by frame, so robots can learn real work." />
+  <title>farasa — the future is in your hands</title>
+  <meta name="description" content="Farasa records how people work in the physical world, labelled frame by frame, so robots can learn real work. Custom datasets built to spec." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
   <script>document.documentElement.classList.add("js")</script>
   <link rel="stylesheet" href="assets/css/site.css" />
 </head>
 <body class="home">
   <header class="nav">
-    <a class="wm" href="index.html">Farasa</a>
+    <a class="wm" href="index.html">farasa<span>_</span></a>
     <nav aria-label="Main">
-      <a href="about.html">About</a>
-      <button type="button" data-order>Request data</button>
+      <a href="about.html">[about]</a>
+      <button type="button" data-order>[request data]</button>
     </nav>
   </header>
 
   <main>
+    <!-- hero: the earth rising over the moon, in ascii -->
     <section class="hero" aria-labelledby="hero-h">
-      <p class="label in" style="--d:0ms">Plate I &nbsp;·&nbsp; Michelangelo, <i>The Creation of Adam</i>, c. 1512</p>
-      <canvas class="plate" data-src="assets/plates/adam.png" data-cols="250" data-split="0.488" data-spark="0.492,0.47" aria-label="The two hands from Michelangelo's Creation of Adam, drawn in type. Adam's hand is set in machine digits." role="img"></canvas>
+      <div class="sky" aria-hidden="true"><canvas id="earthrise"></canvas></div>
       <div class="hero-text">
-        <h1 id="hero-h" class="in" style="--d:900ms">Teaching machines the work of&nbsp;human&nbsp;hands.</h1>
-        <p class="sub in" style="--d:1200ms">Farasa records first-person video and machine data on construction sites and factory floors, and labels every frame, so robots can learn real work.</p>
-        <p class="actions in" style="--d:1400ms"><button type="button" class="arrow" data-order>Request data <span aria-hidden="true">→</span></button><a href="about.html">About Farasa</a></p>
+        <p class="eyebrow in" style="--d:100ms">// physical data for ai</p>
+        <h1 id="hero-h" class="scramble" data-scramble>the future is<br />in your hands.</h1>
+        <div class="typed in" style="--d:1700ms" aria-hidden="true"><pre id="typewriter"></pre></div>
+        <p class="lede in" style="--d:2000ms">Farasa records how people work in the physical world: what they see, how their hands move, what they touch, and what the machines beside them do. Every frame labelled, so robots can learn real work.</p>
+        <p class="actions in" style="--d:2200ms"><button type="button" class="btn solid" data-order>request data &rarr;</button><a class="btn" href="about.html">about us</a></p>
+      </div>
+      <p class="status in" style="--d:2400ms" aria-hidden="true"><span class="blink">●</span> signal live &nbsp;·&nbsp; <span data-clock>00:00:00</span> utc &nbsp;·&nbsp; scroll &darr;</p>
+    </section>
+
+    <section class="premise wrap" aria-label="Why Farasa exists">
+      <p class="kicker">// 01</p>
+      <p class="big" data-words>Every sentence ever typed became training data. Almost none of the work done with hands did. <em>That’s where we come in.</em></p>
+    </section>
+
+    <section class="capture wrap" aria-labelledby="cap-h">
+      <p class="kicker">// 02</p>
+      <h2 id="cap-h">what we capture</h2>
+      <div class="cards">
+        <article class="card wide reveal">
+          <header><span>hands</span><span>01</span></header>
+          <pre class="piece" data-piece="hands" aria-hidden="true"></pre>
+          <p>First-person video with both hands tracked, 21 keypoints each, every frame.</p>
+        </article>
+        <article class="card reveal">
+          <header><span>machine data</span><span>02</span></header>
+          <pre class="piece" data-piece="sparkline" aria-hidden="true"></pre>
+          <p>Telemetry from the machines on the same job, from position and load to speed, synced to the video on one clock.</p>
+        </article>
+        <article class="card reveal">
+          <header><span>labels</span><span>03</span></header>
+          <pre class="piece" data-piece="labels" aria-hidden="true"></pre>
+          <p>Objects, contact, and actions, labelled frame by frame by trained annotators, then two rounds of QA.</p>
+        </article>
       </div>
     </section>
 
-    <section class="folio" aria-labelledby="ii">
-      <div class="folio-text reveal">
-        <p class="num" id="ii">II</p>
-        <p class="aph">For most of history, a trade was learned by doing it beside someone who already could.</p>
+    <section class="how wrap" aria-labelledby="how-h">
+      <p class="kicker">// 03</p>
+      <h2 id="how-h">how it works</h2>
+      <div class="how-grid">
+        <pre class="piece term reveal" data-piece="farasa-terminal" aria-hidden="true"></pre>
+        <ol class="steps">
+          <li class="reveal"><span>01</span><div><h3>scope</h3><p>We agree on the tasks, sensors, and label schema with your team.</p></div></li>
+          <li class="reveal"><span>02</span><div><h3>capture</h3><p>People do the real work while we record it from where they stand, with every sensor synced.</p></div></li>
+          <li class="reveal"><span>03</span><div><h3>label</h3><p>Trained annotators label every frame against your spec, then two rounds of QA.</p></div></li>
+          <li class="reveal"><span>04</span><div><h3>deliver</h3><p>The dataset ships in your format, ready to train on.</p></div></li>
+        </ol>
       </div>
-      <figure class="reveal portrait">
-        <canvas class="plate" data-src="assets/plates/knitting.png" data-cols="130" role="img" aria-label="Millet's Knitting Lesson: a mother leans over a young girl and guides her hands on the needles, drawn in type."></canvas>
-        <figcaption class="label">Plate II &nbsp;·&nbsp; Jean-François Millet, <i>The Knitting Lesson</i>, c. 1860</figcaption>
-      </figure>
     </section>
 
-    <section class="folio wide" aria-labelledby="iii">
-      <div class="folio-text reveal">
-        <p class="num" id="iii">III</p>
-        <p class="aph">A robot can’t stand beside anyone. It learns from recordings. So we record the work from where the worker stands: what they see, what their hands do, and what the machines beside them are doing. Then we label every frame.</p>
+    <section class="custom wrap" aria-labelledby="custom-h">
+      <p class="kicker">// 04</p>
+      <div class="frame reveal">
+        <span class="frame-title">custom datasets</span>
+        <h2 id="custom-h">Need something we haven’t recorded yet?</h2>
+        <p>Physical data is our focus, but we also build custom datasets to spec: new tasks, new sensors, new label schemas, at the scale you need. Tell us what your model is missing.</p>
+        <p><button type="button" class="btn solid" data-order>start a request &rarr;</button></p>
       </div>
-      <figure class="reveal">
-        <video id="headcam" class="src-video" src="assets/media/headcam.mp4" muted loop playsinline preload="auto" aria-hidden="true"></video>
-        <canvas class="plate" data-video="#headcam" data-kp="assets/data/kp_headcam.json" data-cols="170" data-tone="ink" role="img" aria-label="Head-mounted camera footage from a factory line, drawn in type, with the worker's tracked hand joints marked."></canvas>
-        <figcaption class="label">Plate III &nbsp;·&nbsp; Head-cam, factory floor</figcaption>
-      </figure>
     </section>
 
-    <section class="coda" aria-label="Request data">
-      <p class="verse reveal"><span>The internet taught machines to talk.</span><span>Nothing has taught them to work.</span></p>
-      <p class="reveal"><button type="button" class="arrow big" data-order>Request data <span aria-hidden="true">→</span></button></p>
+    <section class="close wrap" aria-label="Request data">
+      <p class="verse reveal"><span>the internet taught machines to talk.</span><span>nothing has taught them to work.</span></p>
+      <p class="reveal"><button type="button" class="btn solid big" data-order>request data &rarr;</button></p>
     </section>
   </main>
 
   <footer class="foot">
-    <span>Farasa &nbsp;·&nbsp; 2026</span>
-    <span><a href="about.html">About</a> &nbsp;·&nbsp; <button type="button" data-order>Request data</button></span>
+    <span>farasa &nbsp;·&nbsp; 2026</span>
+    <span><a href="about.html">[about]</a> <button type="button" data-order>[request data]</button></span>
   </footer>
 
-  <script src="assets/js/ascii.js"></script>
   <script src="assets/js/order.js"></script>
-  <script src="assets/js/site.js"></script>
+  <script type="module" src="assets/js/site.js"></script>
 </body>
 </html>

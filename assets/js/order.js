@@ -6,71 +6,76 @@
   const pad = (n, w = 2) => String(n).padStart(w, "0");
   const now = new Date();
   const orderNo = `FA-${String(now.getFullYear()).slice(2)}${pad(now.getMonth() + 1)}-${pad(Math.floor(1000 + Math.random() * 8999), 4)}`;
-  const VOLUMES = ["Sample only", "10 h", "50 h", "100 h", "250 h", "500 h", "1,000 h", "2,500 h", "5,000 h+"];
+  const VOLUMES = ["sample only", "10 h", "50 h", "100 h", "250 h", "500 h", "1,000 h", "2,500 h", "5,000 h+"];
   const chip = (type, name, v, checked) => `<label><input type="${type}" name="${name}" value="${v}"${checked ? " checked" : ""} /><span>${v}</span></label>`;
   const MARK_UNUSED = `<svg viewBox="28 0 44 100" aria-hidden="true"><g><rect x="48.2" y="0" width="3.6" height="26"/><path d="M43 26 H57 L69 44 H31 Z"/><path d="M32.4 50 H67.6 L50 100 Z"/></g></svg>`;
 
   const html = `
-  <button class="order-fab" type="button" data-order aria-label="Request data"><span>Request data</span></button>
+  <button class="order-fab" type="button" data-order aria-label="Request data"><span>[ request data ]</span></button>
   <div class="order-veil" data-order-veil hidden></div>
   <div class="order" data-order-root hidden>
     <div class="order-float">
       <div class="order-card" role="dialog" aria-modal="true" aria-labelledby="order-h" tabindex="-1">
         <div class="order-head" data-order-drag>
-          <div><h2 id="order-h">Request data</h2><p>No. ${orderNo} · drag to move</p></div>
+          <div><h2 id="order-h">request_data</h2><p>req ${orderNo.toLowerCase()}</p></div>
           <button class="order-x" type="button" data-order-close aria-label="Close"><svg viewBox="0 0 12 12"><path d="M1 1 L11 11 M11 1 L1 11"/></svg></button>
         </div>
         <form class="order-form" novalidate data-order-form>
           <div class="order-body">
+            <div class="ocol">
             <fieldset class="of" data-req="needs">
-              <legend><span>I</span>What do you need? <em class="hint">Pick any</em></legend>
-              <div class="chips">${["First-person video", "Machine data", "Hand pose", "Objects and tools", "Gaze", "Contact", "Action segments", "Not sure yet"].map((v) => chip("checkbox", "needs", v)).join("")}</div>
-              <p class="err">Choose at least one, or "Not sure yet".</p>
+              <legend><span>01</span>what do you need? <em class="hint">pick any</em></legend>
+              <div class="chips">${["first-person video", "hand pose", "objects & tools", "contact", "action labels", "machine data", "custom dataset", "not sure yet"].map((v) => chip("checkbox", "needs", v)).join("")}</div>
+              <p class="err">! choose at least one, or "not sure yet".</p>
             </fieldset>
             <fieldset class="of">
-              <legend><span>II</span>Where should it be captured?</legend>
-              <div class="chips">${["Construction", "Factory floor", "Other"].map((v) => chip("checkbox", "environments", v)).join("")}</div>
+              <legend><span>02</span>where should it be captured?</legend>
+              <div class="chips">${["lab", "construction site", "factory floor", "other"].map((v) => chip("checkbox", "settings", v)).join("")}</div>
             </fieldset>
             <fieldset class="of">
-              <legend><span>III</span>How much footage?</legend>
+              <legend><span>03</span>how much data?</legend>
               <div class="vol">
-                <div class="vol-read"><b data-vol-read>Sample only</b><span>of labelled video</span></div>
+                <div class="vol-read"><b data-vol-read>sample only</b><span>of labelled data</span></div>
                 <input type="range" min="0" max="${VOLUMES.length - 1}" step="1" value="0" name="volume_step" aria-label="How much footage" data-vol />
-                <div class="vol-ticks" aria-hidden="true"><span>Sample</span><span>100 h</span><span>1,000 h</span><span>5,000 h+</span></div>
+                <div class="vol-ticks" aria-hidden="true"><span>sample</span><span>100 h</span><span>1,000 h</span><span>5,000 h+</span></div>
               </div>
             </fieldset>
             <fieldset class="of">
-              <legend><span>IV</span>When do you need it?</legend>
-              <div class="chips">${["Exploring for now", "Within a month", "This quarter", "Later this year"].map((v, i) => chip("radio", "timeline", v, i === 0)).join("")}</div>
+              <legend><span>04</span>when do you need it?</legend>
+              <div class="chips">${["exploring", "within a month", "this quarter", "later this year"].map((v, i) => chip("radio", "timeline", v, i === 0)).join("")}</div>
             </fieldset>
-            <div class="of" data-req="building">
-              <div class="inp"><textarea id="o-building" name="building" rows="3" placeholder=" " required></textarea><label for="o-building">What are you building?</label><i></i></div>
-              <p class="err">Tell us a little about the robot or model, and the tasks it should learn.</p>
             </div>
-            <div class="of">
-              <div class="inp"><input id="o-footage" name="own_footage" placeholder=" " /><label for="o-footage">Footage or logs you already have <small>(optional)</small></label><i></i></div>
-            </div>
+            <div class="ocol">
             <fieldset class="of">
-              <legend><span>V</span>About you</legend>
+              <legend><span>05</span>your project</legend>
+              <div data-req="building">
+                <div class="inp"><textarea id="o-building" name="building" rows="2" placeholder=" " required></textarea><label for="o-building">what are you building?</label><i></i></div>
+                <p class="err">! tell us a little about the model and the tasks it should learn.</p>
+              </div>
+              <div class="inp"><input id="o-footage" name="own_footage" placeholder=" " /><label for="o-footage">data you already have <small>(optional)</small></label><i></i></div>
+            </fieldset>
+            <fieldset class="of">
+              <legend><span>06</span>about you</legend>
               <div class="two">
-                <div data-req="name"><div class="inp"><input id="o-name" name="name" autocomplete="name" placeholder=" " required /><label for="o-name">Name</label><i></i></div><p class="err">Enter your name.</p></div>
-                <div data-req="email"><div class="inp"><input id="o-email" name="email" type="email" autocomplete="email" placeholder=" " required /><label for="o-email">Work email</label><i></i></div><p class="err">Enter a work email, like name@company.com.</p></div>
-                <div><div class="inp"><input id="o-company" name="company" autocomplete="organization" placeholder=" " /><label for="o-company">Company or lab</label><i></i></div></div>
-                <div><div class="inp"><input id="o-role" name="role" autocomplete="organization-title" placeholder=" " /><label for="o-role">Role <small>(optional)</small></label><i></i></div></div>
+                <div data-req="name"><div class="inp"><input id="o-name" name="name" autocomplete="name" placeholder=" " required /><label for="o-name">name</label><i></i></div><p class="err">! enter your name.</p></div>
+                <div data-req="email"><div class="inp"><input id="o-email" name="email" type="email" autocomplete="email" placeholder=" " required /><label for="o-email">work email</label><i></i></div><p class="err">! enter a work email, like name@company.com.</p></div>
+                <div><div class="inp"><input id="o-company" name="company" autocomplete="organization" placeholder=" " /><label for="o-company">company or lab</label><i></i></div></div>
+                <div><div class="inp"><input id="o-role" name="role" autocomplete="organization-title" placeholder=" " /><label for="o-role">role <small>(optional)</small></label><i></i></div></div>
               </div>
             </fieldset>
+            </div>
           </div>
           <div class="order-foot">
-            <p>Reply within<br /><b>2 business days</b></p>
-            <button class="btn ink" type="submit" data-order-submit>Send request <i aria-hidden="true">→</i></button>
+            <p>reply within<br /><b>2 business days</b></p>
+            <button class="btn ink" type="submit" data-order-submit>send --request <i aria-hidden="true">↵</i></button>
           </div>
         </form>
         <div class="order-done" data-order-done hidden tabindex="-1">
-          <p class="stamp" data-stamp>Received</p>
-          <h3>Thanks, <span data-done-name></span>.</h3>
-          <p>Your request is in. We'll reply within two business days with a sample take matched to what you described.</p>
+          <p class="stamp" data-stamp>[ ok ] received</p>
+          <h3>thanks, <span data-done-name></span>.</h3>
+          <p>your request is in. we'll reply within two business days with a sample matched to what you described.</p>
           <dl class="receipt" data-receipt></dl>
-          <button class="btn ink" type="button" data-order-close>Close</button>
+          <button class="btn ink" type="button" data-order-close>close</button>
         </div>
       </div>
     </div>
@@ -198,16 +203,16 @@
     const data = Object.fromEntries([...fd.keys()].map((k) => [k, fd.getAll(k).length > 1 ? fd.getAll(k) : fd.get(k)]));
     data.volume = VOLUMES[+vol.value]; data.order = orderNo; delete data.volume_step;
     const btn = form.querySelector("[data-order-submit]");
-    btn.disabled = true; btn.firstChild.textContent = "Sending… ";
+    btn.disabled = true; btn.firstChild.textContent = "sending… ";
     try {
       if (FORM_ENDPOINT) await fetch(FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
       else await new Promise((r) => setTimeout(r, 650));
     } catch (_) { /* keep the confirmation local-only until a backend exists */ }
     const list = (v) => [].concat(v || []).join(", ") || "—";
     root.querySelector("[data-done-name]").textContent = data.name.split(" ")[0];
-    root.querySelector("[data-receipt]").innerHTML = [["Request", orderNo], ["Needs", list(data.needs)], ["Where", list(data.environments)], ["Volume", data.volume], ["When", data.timeline]]
+    root.querySelector("[data-receipt]").innerHTML = [["req", orderNo], ["needs", list(data.needs)], ["setting", list(data.settings)], ["volume", data.volume], ["when", data.timeline]]
       .map(([k, v]) => `<div><dt>${k}</dt><dd></dd></div>`).join("");
-    root.querySelectorAll("[data-receipt] dd").forEach((dd, i) => { dd.textContent = [orderNo, list(data.needs), list(data.environments), data.volume, data.timeline][i]; });
+    root.querySelectorAll("[data-receipt] dd").forEach((dd, i) => { dd.textContent = [orderNo.toLowerCase(), list(data.needs), list(data.settings), data.volume, data.timeline][i]; });
     done.hidden = false; done.focus({ preventScroll: true });
     if (!reduced) {
       done.animate([{ clipPath: "inset(0 0 100% 0)" }, { clipPath: "inset(0 0 0 0)" }], { duration: 600, easing: "cubic-bezier(.2,.7,.1,1)" });

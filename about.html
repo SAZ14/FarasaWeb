@@ -3,53 +3,48 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>About — Farasa</title>
+  <title>about — farasa</title>
   <meta name="description" content="Why Farasa records the work of human hands." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
   <script>document.documentElement.classList.add("js")</script>
   <link rel="stylesheet" href="assets/css/site.css" />
 </head>
 <body class="about">
-  <header class="nav">
-    <a class="wm" href="index.html">Farasa</a>
+  <header class="nav solid">
+    <a class="wm" href="index.html">farasa<span>_</span></a>
     <nav aria-label="Main">
-      <a href="about.html" aria-current="page">About</a>
-      <button type="button" data-order>Request data</button>
+      <a href="about.html" aria-current="page">[about]</a>
+      <button type="button" data-order>[request data]</button>
     </nav>
   </header>
 
   <main class="about-grid">
-    <figure class="about-plate in" style="--d:0ms">
-      <div class="painting-frame plain">
-        <img class="rider" src="assets/plates/rider.jpg" width="1558" height="1816" alt="A rider gallops across a snowy plain below the mountains while a B-2 bomber flies overhead." />
-        <canvas class="plate" data-src="assets/plates/rider.png" data-cols="200" data-lens="80" data-overlay aria-hidden="true"></canvas>
-      </div>
-      <figcaption class="label">Plate IV &nbsp;·&nbsp; Horse and rider, B-2 Spirit</figcaption>
+    <figure class="about-art in" style="--d:0ms">
+      <pre class="piece rocket" data-piece="rocket" data-fit aria-hidden="true"></pre>
     </figure>
 
     <article class="essay">
-      <p class="label in" style="--d:200ms">About</p>
-      <h1 class="in" style="--d:350ms">Watch closely.</h1>
-      <p class="in" style="--d:550ms">For most of history, people learned a trade by working beside someone who already knew it. Our machines have never had that chance.</p>
-      <p class="verse in" style="--d:700ms"><span>We built machines that fly,</span><span>think,</span><span>and leave the planet.</span></p>
-      <p class="verse pair in" style="--d:800ms"><span>The internet taught machines to talk.</span><span>Nothing has taught them to work.</span></p>
-      <p class="in" style="--d:1080ms">Language models learned to talk by reading billions of words. A robot that lays brick or assembles a motor can’t learn that way. It has to see the work itself, from where the worker stands.</p>
-      <p class="in" style="--d:1210ms">That’s what Farasa records. We film real shifts on construction sites and factory floors, log the machines working the same job, and label every frame.</p>
-      <p class="in" style="--d:1340ms">For five thousand years, we built machines to carry us. Now we’re teaching them to work beside us.</p>
-      <p class="in sign" style="--d:1470ms"><span>Farasa &nbsp;·&nbsp; 2026</span><button type="button" class="arrow" data-order>Request data <span aria-hidden="true">→</span></button></p>
+      <p class="kicker in" style="--d:150ms">// about</p>
+      <h1 class="scramble" data-scramble>watch closely.</h1>
+      <p class="in" style="--d:800ms">For most of history, people learned a trade by working beside someone who already knew it. Our machines have never had that chance.</p>
+      <p class="verse in" style="--d:950ms"><span>We built machines that fly,</span><span>think,</span><span>and leave the planet.</span></p>
+      <p class="in" style="--d:1100ms">Yet ask one to fold a shirt or fit two parts together, and it still struggles. People learned that kind of work by watching it done, and machines have had nothing to watch.</p>
+      <p class="verse pair in" style="--d:1250ms"><span>The internet taught machines to talk.</span><span>Nothing has taught them to work.</span></p>
+      <p class="in" style="--d:1550ms">That’s what Farasa is for. We record real work first-person, track the hands, log the machines on the same job, and label every frame. When you need something we haven’t recorded, we build it as a custom dataset to your spec.</p>
+      <p class="in" style="--d:1700ms">For five thousand years, we built machines to carry us. Now we’re teaching them to work beside us.</p>
+      <p class="sign in" style="--d:1850ms"><span>farasa &nbsp;·&nbsp; 2026</span><button type="button" class="btn solid" data-order>request data &rarr;</button></p>
     </article>
   </main>
 
   <footer class="foot">
-    <span>Farasa &nbsp;·&nbsp; 2026</span>
-    <span><a href="index.html">Home</a> &nbsp;·&nbsp; <button type="button" data-order>Request data</button></span>
+    <span>farasa &nbsp;·&nbsp; 2026</span>
+    <span><a href="index.html">[home]</a> <button type="button" data-order>[request data]</button></span>
   </footer>
 
-  <script src="assets/js/ascii.js"></script>
   <script src="assets/js/order.js"></script>
-  <script src="assets/js/site.js"></script>
+  <script type="module" src="assets/js/site.js"></script>
 </body>
 </html>
