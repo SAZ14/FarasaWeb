@@ -30,7 +30,7 @@
         <h1 id="hero-h" class="scramble" data-scramble>the future is<br />in your hands.</h1>
         <div class="typed in" style="--d:1700ms" aria-hidden="true"><pre id="typewriter"></pre></div>
         <p class="lede in" style="--d:2000ms">Farasa records how people work in the physical world: what they see, how their hands move, what they touch, and what the machines beside them do. Every frame labelled, so robots can learn real work.</p>
-        <p class="actions in" style="--d:2200ms"><button type="button" class="btn solid" data-order>request data &rarr;</button><a class="btn" href="about.html">read about us</a></p>
+        <p class="actions in" style="--d:2200ms"><button type="button" class="btn solid" data-order>request data &rarr;</button><a class="btn" href="about.html">about us</a></p>
       </div>
       <p class="status in" style="--d:2400ms" aria-hidden="true"><span class="blink">●</span> signal live &nbsp;·&nbsp; <span data-clock>00:00:00</span> utc &nbsp;·&nbsp; scroll &darr;</p>
     </section>
@@ -44,20 +44,20 @@
       <p class="kicker">// 02</p>
       <h2 id="cap-h">what we capture</h2>
       <div class="cards">
-        <article class="card reveal">
-          <header><span>streams</span><span>01</span></header>
-          <pre class="piece" data-piece="sparkline" aria-hidden="true"></pre>
-          <p>First-person video, hand pose, force, and motion, every stream on one clock.</p>
+        <article class="card wide reveal">
+          <header><span>hands</span><span>01</span></header>
+          <pre class="piece" data-piece="hands" aria-hidden="true"></pre>
+          <p>First-person video with both hands tracked, 21 keypoints each, every frame.</p>
         </article>
         <article class="card reveal">
-          <header><span>space</span><span>02</span></header>
-          <pre class="piece" data-piece="radar" aria-hidden="true"></pre>
-          <p>Depth and position: where the hands, tools, and objects are, frame by frame.</p>
+          <header><span>machine data</span><span>02</span></header>
+          <pre class="piece" data-piece="sparkline" aria-hidden="true"></pre>
+          <p>Telemetry from the machines on the same job, from position and load to speed, synced to the video on one clock.</p>
         </article>
         <article class="card reveal">
           <header><span>labels</span><span>03</span></header>
-          <pre class="piece" data-piece="heatmap" aria-hidden="true"></pre>
-          <p>Pose, objects, contact, and actions, reviewed twice before anything ships.</p>
+          <pre class="piece" data-piece="labels" aria-hidden="true"></pre>
+          <p>Objects, contact, and actions, labelled frame by frame by trained annotators, then two rounds of QA.</p>
         </article>
       </div>
     </section>
@@ -94,7 +94,6 @@
 
   <footer class="foot">
     <span>farasa &nbsp;·&nbsp; 2026</span>
-    <span class="credit">ascii scenes by <a href="https://ascii.rest" rel="noopener">ascii.rest</a> (mit)</span>
     <span><a href="about.html">[about]</a> <button type="button" data-order>[request data]</button></span>
   </footer>
 

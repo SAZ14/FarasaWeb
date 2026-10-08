@@ -1,15 +1,16 @@
+// Modified for Farasa: wider line, faster typing, starts empty, left-aligned. Original: ascii.rest (MIT).
 export const meta = {
     name: "typewriter",
     category: "type",
     note: "phrases typed and deleted in turn behind a blinking cursor",
-    cols: 44,
+    cols: 72,
     rows: 3,
     fps: 20,
     options: { prefix: "i make ", phrases: ["small tools.", "quiet websites.", "things that last.", "notes for later."] },
 };
 const CURSOR = "▌";
-const HOLD = 2.2; // seconds a finished phrase stays
-const EMPTY = 0.5; // seconds the line waits empty before the next phrase
+const HOLD = 1.7; // seconds a finished phrase stays
+const EMPTY = 0.3; // seconds the line waits empty before the next phrase
 // Keys next to each other on a keyboard, for believable slips.
 const ROWS = ["qwertyuiop", "asdfghjkl", "zxcvbnm"];
 function mulberry32(a) {
@@ -41,11 +42,11 @@ export default function typewriter({ prefix = meta.options.prefix, phrases = met
         text = next;
         events.push([at, text]);
     };
-    const typeDelay = (ch) => 0.06 + rand() * 0.09 + (ch === " " ? 0.05 + rand() * 0.08 : 0) + (rand() < 0.05 ? 0.3 : 0);
+    const typeDelay = (ch) => 0.028 + rand() * 0.04 + (ch === " " ? 0.02 + rand() * 0.04 : 0) + (rand() < 0.03 ? 0.15 : 0);
     const done = [];
     for (const phrase of list) {
         // Some phrases get one slip: a wrong key, a key or two more, a pause, then backspaces.
-        const typo = rand() < 0.5 && phrase.length > 5 ? 3 + Math.floor(rand() * (phrase.length - 4)) : -1;
+        const typo = rand() < 0.25 && phrase.length > 5 ? 3 + Math.floor(rand() * (phrase.length - 4)) : -1;
         for (let i = 0; i < phrase.length; i++) {
             const wrong = i === typo ? slip(phrase[i], rand) : null;
             if (wrong) {
@@ -63,14 +64,14 @@ export default function typewriter({ prefix = meta.options.prefix, phrases = met
         // Held backspace: one press, a beat, then it repeats.
         at += HOLD;
         for (let k = 0; k < phrase.length; k++)
-            key(text.slice(0, -1), k === 0 ? 0 : k === 1 ? 0.18 : 0.045);
+            key(text.slice(0, -1), k === 0 ? 0 : k === 1 ? 0.12 : 0.025);
         at += EMPTY;
     }
     const period = at;
     // Frame 0 shows the first phrase finished, cursor lit, shortly before it is deleted.
-    const offset = done[0] + HOLD - 0.75;
+    const offset = 0; // start on an empty line so the first phrase is typed in (Farasa)
     const width = head.length + Math.max(...list.map((p) => p.length)) + 1;
-    const x = Math.max(0, Math.floor((cols - width) / 2));
+    const x = 0; // left-aligned (Farasa)
     const blank = " ".repeat(cols);
     return (t) => {
         const now = (((t + offset) % period) + period) % period;

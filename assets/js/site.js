@@ -63,13 +63,35 @@ function scramble(el, delay = 0) {
 
 // ── widgets: each <pre data-piece> plays its piece once it is near view ──
 const OPTIONS = {
-  typewriter: { prefix: "> we collect ", phrases: ["how hands move.", "what people touch.", "the physical world, labelled.", "custom datasets, to spec."] },
-  sparkline: { series: [{ label: "grip", unit: " n", lo: 0, hi: 40 }, { label: "accel", unit: " m/s²", lo: 0, hi: 12, digits: 1 }, { label: "elbow", unit: "°", lo: 0, hi: 180 }], range: true, rate: 30 },
-  radar: { range: 3, unit: "m" },
-  heatmap: { unit: "labels", seed: 11 },
+  typewriter: { prefix: "> we record ", phrases: ["how people work.", "what their hands do.", "what people touch.", "the physical world, labelled.", "custom datasets, built to spec."] },
+  sparkline: { series: [{ label: "position", unit: " mm", lo: 0, hi: 600 }, { label: "load", unit: " n", lo: 0, hi: 90 }, { label: "speed", unit: " rpm", lo: 0, hi: 3000 }], range: false, rate: 30 },
 };
+const OURS = new Set(["hands", "labels"]);
+const DATA = { hands: () => fetch("assets/data/hands.json").then((r) => r.json()) };
+function fit(el, meta) { // size a piece to fill its box in both directions
+  const lh = parseFloat(getComputedStyle(el).lineHeight) / parseFloat(getComputedStyle(el).fontSize) || 1.2;
+  const box = el.parentElement.getBoundingClientRect();
+  const sign = document.querySelector(".essay .sign"); // on the about page the rocket stands on the sign-off rule
+  const h = box.height - (sign && innerWidth > 860 ? sign.offsetHeight : 0);
+  el.style.fontSize = Math.min((box.width * 1.16) / (meta.cols * 0.6), h / (meta.rows * lh)) + "px"; // the scene's edges are open sky, so it may run a little past its column
+}
+// about page: the rocket's ground sits on the rule above the sign-off
+function alignAbout(el, meta) {
+  const fig = el.closest(".about-art"), sign = document.querySelector(".essay .sign");
+  if (!fig || !sign || innerWidth <= 860) { el.style.bottom = ""; return; }
+  // layout positions, not on-screen ones: the entrance animation nudges things while it runs
+  const y = (n) => { let t = 0; for (; n; n = n.offsetParent) t += n.offsetTop; return t; };
+  const fb = y(fig) + fig.offsetHeight, rule = y(sign);
+  const lh = el.offsetHeight / meta.rows;
+  el.style.bottom = `${Math.round(fb - (rule + lh / 2))}px`;
+}
 function play(el, name) {
-  import(`../vendor/ascii-rest/pieces/${name}.js`).then((piece) => { el.style.setProperty("--cols", piece.meta.cols); mount(el, piece, OPTIONS[name] || {}); });
+  const src = OURS.has(name) ? `./pieces/${name}.js` : `../vendor/ascii-rest/pieces/${name}.js`;
+  Promise.all([import(src), DATA[name] ? DATA[name]() : null]).then(([piece, data]) => {
+    el.style.setProperty("--cols", piece.meta.cols);
+    if ("fit" in el.dataset) { const f = () => { fit(el, piece.meta); alignAbout(el, piece.meta); }; f(); addEventListener("resize", f); document.fonts && document.fonts.ready.then(f); }
+    mount(el, piece, { ...(OPTIONS[name] || {}), ...(data ? { data } : {}) });
+  });
 }
 
 // ── page ready: entrance, then the headline, then everything else ──────

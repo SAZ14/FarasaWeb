@@ -11,7 +11,7 @@ export const meta = {
 // A number in the output is a pause before the next line.
 // Farasa: a capture session, start to finish. (Forked from ascii.rest's terminal piece, MIT.)
 const SESSION = [
-    ["farasa scope --task \"bimanual assembly\"", 0.4, ["task      bimanual assembly", "streams   video · hands · force · imu", "labels    pose · objects · contact · actions", "ok"]],
+    ["farasa scope --task \"bimanual assembly\"", 0.4, ["task      bimanual assembly", "streams   video · hands · machine data", "labels    pose · objects · contact · actions", "ok"]],
     ["farasa capture --hours 40", 0.5, ["rig 01 ... synced   rig 02 ... synced", 0.6, "recording [##########----------]  50%", 0.8, "recording [####################] 100%", "40.0 h captured"]],
     ["farasa label --qa 2", 0.6, ["hand pose ........ done", 0.4, "objects .......... done", 0.4, "contact .......... done", 0.4, "two QA passes .... clean"]],
     ["farasa deliver --format lerobot", 0.5, ["packaged 1,284 episodes", "ready to train."]],

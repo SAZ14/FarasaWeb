@@ -24,7 +24,7 @@
           <div class="order-body">
             <fieldset class="of" data-req="needs">
               <legend><span>01</span>what do you need? <em class="hint">pick any</em></legend>
-              <div class="chips">${["first-person video", "hand pose", "force & touch", "depth & 3d", "machine telemetry", "action labels", "custom dataset", "not sure yet"].map((v) => chip("checkbox", "needs", v)).join("")}</div>
+              <div class="chips">${["first-person video", "hand pose", "objects & tools", "contact", "action labels", "machine data", "custom dataset", "not sure yet"].map((v) => chip("checkbox", "needs", v)).join("")}</div>
               <p class="err">! choose at least one, or "not sure yet".</p>
             </fieldset>
             <fieldset class="of">
