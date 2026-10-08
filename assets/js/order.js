@@ -22,14 +22,15 @@
         </div>
         <form class="order-form" novalidate data-order-form>
           <div class="order-body">
+            <div class="ocol">
             <fieldset class="of" data-req="needs">
               <legend><span>01</span>what do you need? <em class="hint">pick any</em></legend>
               <div class="chips">${["first-person video", "hand pose", "objects & tools", "contact", "action labels", "machine data", "custom dataset", "not sure yet"].map((v) => chip("checkbox", "needs", v)).join("")}</div>
               <p class="err">! choose at least one, or "not sure yet".</p>
             </fieldset>
             <fieldset class="of">
-              <legend><span>02</span>what setting?</legend>
-              <div class="chips">${["home", "workplace", "outdoors", "lab", "other"].map((v) => chip("checkbox", "settings", v)).join("")}</div>
+              <legend><span>02</span>where should it be captured?</legend>
+              <div class="chips">${["lab", "construction site", "factory floor", "other"].map((v) => chip("checkbox", "settings", v)).join("")}</div>
             </fieldset>
             <fieldset class="of">
               <legend><span>03</span>how much data?</legend>
@@ -43,8 +44,10 @@
               <legend><span>04</span>when do you need it?</legend>
               <div class="chips">${["exploring", "within a month", "this quarter", "later this year"].map((v, i) => chip("radio", "timeline", v, i === 0)).join("")}</div>
             </fieldset>
+            </div>
+            <div class="ocol">
             <div class="of" data-req="building">
-              <div class="inp"><textarea id="o-building" name="building" rows="3" placeholder=" " required></textarea><label for="o-building">what are you building?</label><i></i></div>
+              <div class="inp"><textarea id="o-building" name="building" rows="2" placeholder=" " required></textarea><label for="o-building">what are you building?</label><i></i></div>
               <p class="err">! tell us a little about the model and the tasks it should learn.</p>
             </div>
             <div class="of">
@@ -59,6 +62,7 @@
                 <div><div class="inp"><input id="o-role" name="role" autocomplete="organization-title" placeholder=" " /><label for="o-role">role <small>(optional)</small></label><i></i></div></div>
               </div>
             </fieldset>
+            </div>
           </div>
           <div class="order-foot">
             <p>reply within<br /><b>2 business days</b></p>
