@@ -17,7 +17,7 @@
     <div class="order-float">
       <div class="order-card" role="dialog" aria-modal="true" aria-labelledby="order-h" tabindex="-1">
         <div class="order-head" data-order-drag>
-          <div><h2 id="order-h">request_data</h2><p>req ${orderNo.toLowerCase()} · drag to move</p></div>
+          <div><h2 id="order-h">request_data</h2><p>req ${orderNo.toLowerCase()}</p></div>
           <button class="order-x" type="button" data-order-close aria-label="Close"><svg viewBox="0 0 12 12"><path d="M1 1 L11 11 M11 1 L1 11"/></svg></button>
         </div>
         <form class="order-form" novalidate data-order-form>
@@ -46,15 +46,16 @@
             </fieldset>
             </div>
             <div class="ocol">
-            <div class="of" data-req="building">
-              <div class="inp"><textarea id="o-building" name="building" rows="2" placeholder=" " required></textarea><label for="o-building">what are you building?</label><i></i></div>
-              <p class="err">! tell us a little about the model and the tasks it should learn.</p>
-            </div>
-            <div class="of">
-              <div class="inp"><input id="o-footage" name="own_footage" placeholder=" " /><label for="o-footage">data you already have <small>(optional)</small></label><i></i></div>
-            </div>
             <fieldset class="of">
-              <legend><span>05</span>about you</legend>
+              <legend><span>05</span>your project</legend>
+              <div data-req="building">
+                <div class="inp"><textarea id="o-building" name="building" rows="2" placeholder=" " required></textarea><label for="o-building">what are you building?</label><i></i></div>
+                <p class="err">! tell us a little about the model and the tasks it should learn.</p>
+              </div>
+              <div class="inp"><input id="o-footage" name="own_footage" placeholder=" " /><label for="o-footage">data you already have <small>(optional)</small></label><i></i></div>
+            </fieldset>
+            <fieldset class="of">
+              <legend><span>06</span>about you</legend>
               <div class="two">
                 <div data-req="name"><div class="inp"><input id="o-name" name="name" autocomplete="name" placeholder=" " required /><label for="o-name">name</label><i></i></div><p class="err">! enter your name.</p></div>
                 <div data-req="email"><div class="inp"><input id="o-email" name="email" type="email" autocomplete="email" placeholder=" " required /><label for="o-email">work email</label><i></i></div><p class="err">! enter a work email, like name@company.com.</p></div>
