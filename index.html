@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>farasa — the future is in your hands</title>
+  <meta name="description" content="Farasa records how people work in the physical world, labelled frame by frame, so robots can learn real work. Custom datasets built to spec." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
+  <script>document.documentElement.classList.add("js")</script>
+  <link rel="stylesheet" href="assets/css/site.css" />
+</head>
+<body class="home">
+  <header class="nav">
+    <a class="wm" href="index.html">farasa<span>_</span></a>
+    <nav aria-label="Main">
+      <a href="about.html">[about]</a>
+      <button type="button" data-order>[request data]</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- hero: the earth rising over the moon, in ascii -->
+    <section class="hero" aria-labelledby="hero-h">
+      <div class="sky" aria-hidden="true"><canvas id="earthrise"></canvas></div>
+      <div class="hero-text">
+        <p class="eyebrow in" style="--d:100ms">// physical data for ai</p>
+        <h1 id="hero-h" class="scramble" data-scramble>the future is<br />in your hands.</h1>
+        <div class="typed in" style="--d:1700ms" aria-hidden="true"><pre id="typewriter"></pre></div>
+        <p class="lede in" style="--d:2000ms">Farasa records how people work in the physical world: what they see, how their hands move, what they touch, and what the machines beside them do. Every frame labelled, so robots can learn real work.</p>
+        <p class="actions in" style="--d:2200ms"><button type="button" class="btn solid" data-order>request data &rarr;</button><a class="btn" href="about.html">read about us</a></p>
+      </div>
+      <p class="status in" style="--d:2400ms" aria-hidden="true"><span class="blink">●</span> signal live &nbsp;·&nbsp; <span data-clock>00:00:00</span> utc &nbsp;·&nbsp; scroll &darr;</p>
+    </section>
+
+    <section class="premise wrap" aria-label="Why Farasa exists">
+      <p class="kicker">// 01</p>
+      <p class="big" data-words>Every sentence ever typed became training data. Almost none of the work done with hands did. <em>That’s where we come in.</em></p>
+    </section>
+
+    <section class="capture wrap" aria-labelledby="cap-h">
+      <p class="kicker">// 02</p>
+      <h2 id="cap-h">what we capture</h2>
+      <div class="cards">
+        <article class="card reveal">
+          <header><span>streams</span><span>01</span></header>
+          <pre class="piece" data-piece="sparkline" aria-hidden="true"></pre>
+          <p>First-person video, hand pose, force, and motion, every stream on one clock.</p>
+        </article>
+        <article class="card reveal">
+          <header><span>space</span><span>02</span></header>
+          <pre class="piece" data-piece="radar" aria-hidden="true"></pre>
+          <p>Depth and position: where the hands, tools, and objects are, frame by frame.</p>
+        </article>
+        <article class="card reveal">
+          <header><span>labels</span><span>03</span></header>
+          <pre class="piece" data-piece="heatmap" aria-hidden="true"></pre>
+          <p>Pose, objects, contact, and actions, reviewed twice before anything ships.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="how wrap" aria-labelledby="how-h">
+      <p class="kicker">// 03</p>
+      <h2 id="how-h">how it works</h2>
+      <div class="how-grid">
+        <pre class="piece term reveal" data-piece="farasa-terminal" aria-hidden="true"></pre>
+        <ol class="steps">
+          <li class="reveal"><span>01</span><div><h3>scope</h3><p>We agree on the tasks, sensors, and label schema with your team.</p></div></li>
+          <li class="reveal"><span>02</span><div><h3>capture</h3><p>People do the real work while we record it from where they stand, with every sensor synced.</p></div></li>
+          <li class="reveal"><span>03</span><div><h3>label</h3><p>Trained annotators label every frame against your spec, then two rounds of QA.</p></div></li>
+          <li class="reveal"><span>04</span><div><h3>deliver</h3><p>The dataset ships in your format, ready to train on.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="custom wrap" aria-labelledby="custom-h">
+      <p class="kicker">// 04</p>
+      <div class="frame reveal">
+        <span class="frame-title">custom datasets</span>
+        <h2 id="custom-h">Need something we haven’t recorded yet?</h2>
+        <p>Physical data is our focus, but we also build custom datasets to spec: new tasks, new sensors, new label schemas, at the scale you need. Tell us what your model is missing.</p>
+        <p><button type="button" class="btn solid" data-order>start a request &rarr;</button></p>
+      </div>
+    </section>
+
+    <section class="close wrap" aria-label="Request data">
+      <p class="verse reveal"><span>the internet taught machines to talk.</span><span>nothing has taught them to work.</span></p>
+      <p class="reveal"><button type="button" class="btn solid big" data-order>request data &rarr;</button></p>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>farasa &nbsp;·&nbsp; 2026</span>
+    <span class="credit">ascii scenes by <a href="https://ascii.rest" rel="noopener">ascii.rest</a> (mit)</span>
+    <span><a href="about.html">[about]</a> <button type="button" data-order>[request data]</button></span>
+  </footer>
+
+  <script src="assets/js/order.js"></script>
+  <script type="module" src="assets/js/site.js"></script>
+</body>
+</html>
