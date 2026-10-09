@@ -66,7 +66,6 @@
             </fieldset>
             </div>
           </div>
-          <div class="hp" aria-hidden="true"><label for="o-hp">leave this empty</label><input id="o-hp" name="hp_x7" tabindex="-1" autocomplete="off" data-1p-ignore data-lpignore="true" /></div>
           <div class="order-foot">
             <p data-foot-note>reply within<br /><b>2 business days</b></p>
             <p class="send-err" data-send-err role="alert" hidden></p>
