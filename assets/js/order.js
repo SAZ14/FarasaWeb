@@ -1,7 +1,8 @@
 // The request card: a floating request card that opens from any [data-order] trigger.
-// No backend yet: set FORM_ENDPOINT to a URL that accepts a JSON POST to wire it up.
+// Requests go to a Google Apps Script web app, which appends each one as a row in a Google Sheet.
+// The URL is safe to publish: the script can only add rows, never read the sheet.
 (() => {
-  const FORM_ENDPOINT = null;
+  const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbzIRLpJhMXmPD4YwnFLWdDyDnSgYVHTE61Ln_9hujDt4tSZxiY7vUCTGV_YkfCeRXTQGw/exec";
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const pad = (n, w = 2) => String(n).padStart(w, "0");
   const now = new Date();
@@ -65,8 +66,10 @@
             </fieldset>
             </div>
           </div>
+          <div class="hp" aria-hidden="true"><label for="o-hp">leave this empty</label><input id="o-hp" name="hp_x7" tabindex="-1" autocomplete="off" data-1p-ignore data-lpignore="true" /></div>
           <div class="order-foot">
-            <p>reply within<br /><b>2 business days</b></p>
+            <p data-foot-note>reply within<br /><b>2 business days</b></p>
+            <p class="send-err" data-send-err role="alert" hidden></p>
             <button class="btn ink" type="submit" data-order-submit>send --request <i aria-hidden="true">↵</i></button>
           </div>
         </form>
@@ -203,11 +206,22 @@
     const data = Object.fromEntries([...fd.keys()].map((k) => [k, fd.getAll(k).length > 1 ? fd.getAll(k) : fd.get(k)]));
     data.volume = VOLUMES[+vol.value]; data.order = orderNo; delete data.volume_step;
     const btn = form.querySelector("[data-order-submit]");
+    data.page = location.href;
+    const sendErr = root.querySelector("[data-send-err]"), note = root.querySelector("[data-foot-note]");
+    sendErr.hidden = true; note.hidden = false;
     btn.disabled = true; btn.firstChild.textContent = "sending… ";
     try {
-      if (FORM_ENDPOINT) await fetch(FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
-      else await new Promise((r) => setTimeout(r, 650));
-    } catch (_) { /* keep the confirmation local-only until a backend exists */ }
+      // text/plain keeps this a "simple" request, so the browser skips a CORS preflight Apps Script can't answer
+      const res = await fetch(FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(data) });
+      const out = await res.json().catch(() => ({ ok: false }));
+      if (!res.ok || !out.ok) throw new Error(out.error || "send failed");
+    } catch (err) {
+      // nothing was lost: the form keeps everything the person typed
+      btn.disabled = false; btn.firstChild.textContent = "send --request ";
+      note.hidden = true; sendErr.hidden = false;
+      sendErr.textContent = /too many/.test(err.message) ? "! too many requests from this email. try again in a few minutes." : "! couldn't send. check your connection and try again.";
+      return;
+    }
     const list = (v) => [].concat(v || []).join(", ") || "—";
     root.querySelector("[data-done-name]").textContent = data.name.split(" ")[0];
     root.querySelector("[data-receipt]").innerHTML = [["req", orderNo], ["needs", list(data.needs)], ["setting", list(data.settings)], ["volume", data.volume], ["when", data.timeline]]
